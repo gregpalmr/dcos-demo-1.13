@@ -1,0 +1,28 @@
+
+# Setup Sock Shop Kubernetes Demo
+#
+git clone https://github.com/microservices-demo/microservices-demo
+
+cd microservices-demo/deploy/kubernetes
+
+kubectl create namespace sock-shop
+
+kubectl apply -f complete-demo.yaml
+
+kubectl -n sock-shop get pods
+
+# nodeport is on 30001
+
+# Get a list of public agent nodes
+#
+get-dcos-public-agent-ip.sh
+
+# Access the Sock Shop Shopping Cart via the ingress nodeport setup
+#
+http://<public agent ip>:30001
+
+# Destroy the demo
+#
+kubectl -n sock-shop delete pods,svc,deployment --all
+kubectl delete namespace sock-shop
+

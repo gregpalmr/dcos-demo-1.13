@@ -1,0 +1,17 @@
+{
+  "service": {
+    "name": "SVC_NAME",
+    "service_account_secret": "SVC_NAME/sa",
+    "service_account": "SVC_NAME"
+  },
+  "kubernetes": {
+    "high_availability": false,
+    "control_plane_placement": "[[\"hostname\",\"UNIQUE\"],[\"@zone\",\"GROUP_BY\",\"3\"]]",
+    "private_node_placement": "[[\"@zone\",\"GROUP_BY\",\"3\"]]",
+    "private_node_count": 3,
+    "public_node_count": 0
+  },
+  "etcd": {
+    "placement": "[[\"@zone\",\"GROUP_BY\",\"3\"]]"
+  }
+}

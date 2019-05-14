@@ -1,0 +1,6 @@
+
+
+    dcos package install kubernetes --cli --package-version=2.3.0-1.14.1 --yes
+
+    dcos kubernetes cluster update  --cluster-name=k8s-1 --package-version=2.3.0-1.14.1 --yes
+

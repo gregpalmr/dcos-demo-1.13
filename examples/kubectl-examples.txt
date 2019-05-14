@@ -1,0 +1,19 @@
+Use the kubectl command to run some kubectl commands:
+
+    To access the dashboard run:
+
+    $ kubectl proxy &
+    Browser: http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+
+    $ kubectl config get-contexts
+    $ kubectl config use-context kubernetes-cluster1
+    $ kubectl config use-context kubernetes-cluster2
+
+    $ kubectl cluster-info
+    $ kubectl get node
+    $ kubectl run my-nginx --image=nginx --replicas=2 --port=80
+    $ kubectl get pods
+    $ kubectl get deployment
+    $ kubectl scale deployment my-nginx --replicas=3
+    $ kubectl get pods
+    $ kubectl delete deployment my-nginx
