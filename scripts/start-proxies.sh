@@ -50,7 +50,7 @@ sed 's/SVC_NAME/k8s-1/g' resources/haproxy-marathon.json > /tmp/haproxy.json
 dcos marathon app add /tmp/haproxy.json > /dev/null 2>&1
 sleep 2
 
-sed 's/SVC_NAME/k8s-2/g' resources/haproxy-marathon.json > /tmp/haproxy.json
+sed 's/SVC_NAME/k8s-2/g' resources/haproxy2-marathon.json > /tmp/haproxy.json
 dcos marathon app add /tmp/haproxy.json > /dev/null 2>&1
 sleep 2
 
