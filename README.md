@@ -43,7 +43,7 @@ If you want to demonstrate Enterprise DC/OS's multiple region or availability zo
 
 Point your web browser to DC/OS master node and login as the default superuser (bootstrapuser/deleteme). The master node Dashboard URL is:
 
-    https://master node public ip address>
+    https://<master node public ip address>
 
 ### c. Install the DC/OS command line interface (CLI)
 
@@ -51,19 +51,19 @@ In the DC/OS Dashboard, click on the drop down menu in the upper right side of h
 
 Then run the cluster setup command:
 
-    dcos cluster setup https://<master node public ip address>
+    $ dcos cluster setup https://<master node public ip address>
 
 NOTE: Make sure you use an HTTPS URL in the cluster setup command and not an HTTP URL.
 
-Once the DC/OS CLI is installed, install some sub-commands:
+Once the DC/OS CLI is installed, install some sub-commands. This is optional if you run the scripts/prep-cluster.sh script.
 
-    dcos package install --cli spark --yes
+    $ dcos package install --cli spark --yes
 
-    dcos package install --cli kafka --yes
+    $ dcos package install --cli kafka --yes
 
-    dcos package install --cli kubernetes --yes
+    $ dcos package install --cli kubernetes --yes
 
-    dcos package install dcos-enterprise-cli --yes
+    $ dcos package install dcos-enterprise-cli --yes
 
 Install the kubectl command line program by following the instructions here:
 
@@ -73,39 +73,38 @@ Or use these instructions to install the kubectl program.
 
 For Macs with brew installed the command is
 
-    brew install kubectl
+    $ brew install kubectl
 
 For CoreOS the commands are:
 
-    curl -O https://storage.googleapis.com/kubernetes-release/release/v1.12.1/bin/linux/amd64/kubectl
-    chmod +x kubectl
-    sudo mkdir -p /opt/bin
-    sudo mv kubectl /opt/bin/kubectl
+    $ curl -O https://storage.googleapis.com/kubernetes-release/release/v1.12.1/bin/linux/amd64/kubectl
+    $ chmod +x kubectl
+    $ sudo mkdir -p /opt/bin
+    $ sudo mv kubectl /opt/bin/kubectl
 
 For Red Red or CentOS the commands are:
 
-    curl -O https://storage.googleapis.com/kubernetes-release/release/v1.12.1/bin/linux/amd64/kubectl
-    chmod +x kubectl
-    sudo mkdir -p /usr/local/bin
-    sudo mv kubectl /usr/local/bin/kubectl
+    $ curl -O https://storage.googleapis.com/kubernetes-release/release/v1.12.1/bin/linux/amd64/kubectl
+    $ chmod +x kubectl
+    $ sudo mkdir -p /usr/local/bin
+    $ sudo mv kubectl /usr/local/bin/kubectl
 
 For Ubuntu the commands are:
 
-    sudo apt-get update && sudo apt-get install -y apt-transport-https
-    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-    sudo touch /etc/apt/sources.list.d/kubernetes.list 
-    echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-    sudo apt-get update
-    sudo apt-get install -y kubectl
-
+    $ sudo apt-get update && sudo apt-get install -y apt-transport-https
+    $ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+    $ sudo touch /etc/apt/sources.list.d/kubernetes.list 
+    $ echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+    $ sudo apt-get update
+    $ sudo apt-get install -y kubectl
 
 ### d. Prep the Cluster
 
 To support launching Kubernetes clusters with DC/OS service accounts and SSL certificates, run the prep script that creates the base service account users and their signed certificates using the DC/OS certificate authority (CA).
 
-    scripts/prep-cluster.sh
+    $ scripts/prep-cluster.sh
 
-### d. Get the public IP addresses of the DC/OS public agent nodes. 
+### e. Get the public IP addresses of the DC/OS public agent nodes. 
 
 As part of the demo, you will need to access the public MKE Kubernetes nodes running on the public DC/OS agent nodes. Use the following command to get the public IP address of those DC/OS public agent nodes.
 
