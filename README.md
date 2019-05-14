@@ -143,47 +143,21 @@ Demonstrate the Spark dispatcher service. Show the Spark console and discuss how
 
 Discuss how Enterprise DC/OS supports "high density" kubernetes clusters and supports launching different versions of Kubernetes clusters to support different development teams. And how DC/OS uses an un-forked version of the opensource version of Kubernetes and the kubectl package. And how DC/OS allows kubernetes control plan components and worker node components to be spread across cloud availability zones for HA reasons. Use the Dashboard's Services panel to show how the example MKE clusters are running tasks that are spread across availability zones and how (with high density Kubernetes support), DC/OS is running tasks from multiple Kubernetes clusters on the SAME servers or cloud instances!
 
-Use the DC/OS Dashboard Catalog panel to start the Kubernetes Control Plane Manager (the kubernetes package).
-
-    Package: kubernetes
-    Options:
-        Service Name: kubernetes
-        Service Account: kubernetes
-        Service Account Secret: kubernetes/sa
-
-Once the Kubernets control plane manager starts, use the DC/OS Dashboard Catalog panel to start two Kubernetes clusters. For the first Kubernetes cluster specify the service account user and secrets like this:
+Use the DC/OS Dashboard Catalog panel to start a 5th Kubernetes cluster. Specify the service account user and secrets like this:
 
     Package: kubernetes-cluster
-    Version: 2.0.1-1.12.2 (the latest version)
+    Version: 2.2.2-1.13.5 (an older version)
     Options:
-        Service Name: kubernetes-cluster1
-        Service Account: kubernetes-cluster1
-        Service Account Secret: kubernetes-cluster1/sa
-        Constrol Plane Placement: [["hostname", "UNIQUE"],["@zone", "GROUP_BY", "3"]]
-        Private Node Count: 1
-        Public Node Count: 1
-
-Also, start a second Kubernetes cluster with a different name, service account user and a different 
-
-    Package: kubernetes-cluster
-    Version: 2.0.0-1.12.1 (one version older than the latest)
-    Options:
-        Service Name: kubernetes-cluster2
-        Service Account: kubernetes-cluster2
-        Service Account Secret: kubernetes-cluster2/sa
-        High Availability: TRUE
-        Service Cidr: 10.101.0.0/16
-        Constrol Plane Placement: [["hostname", "UNIQUE"],["@zone", "GROUP_BY", "3"]]
+        Service Name: k8s-5 
+        Service Account:  k8s-5
+        Service Account Secret: k8s-5/sa
+        Placement: Number of Zones: 2 
         Private Node Count: 1
         Public Node Count: 0
 
-### d. Start the Kubernetes clusters' API Server proxy services
+        Talk about how MKE can implement Kubernetes RBAC with the click of a checkbox and how it can enable HA too (in fact k8s-1 cluster is deployed in HA mode).
 
-While the two Kubernetes clusters are launching, run the script that starts two HAProxy services on the DC/OS public agent nodes and redirect requests to the Kubernetes API Servers running on the DC/OS private agent nodes. Run the command:
-
-    scripts/start-proxies.sh
-
-### e. Demonstrate the Enterprise DC/OS features
+### d. Demonstrate the Enterprise DC/OS features
 
 While the two Kubernets clusters are launching, use the DC/OS Dashboard to show how DC/OS:
 
@@ -209,11 +183,13 @@ Show how DC/OS does not allow the user to start MySQL into that application grou
 
 And show how DC/OS allows that and by looking at the Services panel, how the MySQL package is "deploying".
 
-### f. Demonstrate kubctl commands
+### e. Demonstrate kubctl commands
 
-Once the first Kubernetes cluster is launched (it should be quick since it didn't have HA enabled and only had 1 public and 1 private kubelet), demonstrate interacting with the Kubernetes cluster using the kubectl command.
+The prep-cluser.sh script called the setup-kubectl.sh script which setup the kubectl command pointing to the k8s-1 cluster. Additionally the start-sockshop-pods.sh script was called to load the sockshop microservices example application running with nodeport functionality in Kubernetes pods. Point your web browser to one of the DC/OS public agent nodes running and point to the Sockshop shopping cart example app:
 
-Some example kubectl commands can be found in:
+    http://<public agent public ip address>:30001
+
+You can also demonstrate interacting with the Kubernetes cluster using other  kubectl commands. Some example kubectl commands can be found in:
 
     examples/kubectl-examples.txt
 
@@ -221,7 +197,7 @@ If you want to demonstrate installing Helm and a Heml Chart, you can experiment 
 
     examples/helm-examples.txt
 
-### g. Demonstrate upgrading a Kubernetes cluster
+### f. Demonstrate upgrading a Kubernetes cluster
 
 Discuss how Enterprise DC/OS automates the process of upgrading, in a rolling fashion, the upgrading of Kubernetes clusters without disrupting the pods running on the Kubernetes cluster. Also, discuss how DC/OS has a built-in CLI command that can backup the Kubernetes cluster meta-data (from the etcd daemons) so that a Kubernetes cluster's state can be restored from a backup in the case of a failure or building a new Kubernetes cluster.
 
