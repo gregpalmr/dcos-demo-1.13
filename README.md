@@ -25,7 +25,7 @@ Also, make sure your DC/OS license file is available on your local computer and 
 
     Change line: dcos_license_key_contents = "${file("~/scripts/license.txt")}"
 
-Use the provided script in:
+Then run the provided script in:
 
      $ ./scripts/launch_cluster.sh
 
