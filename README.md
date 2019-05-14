@@ -15,15 +15,15 @@ Before starting the demo session, perform the following:
 
 Launch an Enterprise DC/OS cluster using the Mesosphere DC/OS Universal Installer. 
 
-First modify the cluster/main.tf terraform template file to use your own unique cluster name. This is important because it will create objects in AWS that must have unique names.
+First modify the cluster/main.tf terraform template file to use your own unique cluster name. This is important because it will create objects in AWS that must have unique names. Also, make sure your DC/OS license file is available on your local computer and it is referenced correctly in the main.tf file.
 
      $ vi cluster/main.tf
 
-     Change line: cluster_name = "mycluster-113"
+     Change line: prefix = "mycluster-"
 
-Also, make sure your DC/OS license file is available on your local computer and it is referenced correctly in the main.tf file.
+     Change line: dcos_license_key_contents = "${file("~/scripts/license.txt")}"
 
-    Change line: dcos_license_key_contents = "${file("~/scripts/license.txt")}"
+     Change line: owner = "Firstname Lastname"
 
 Then run the provided script in:
 
@@ -39,15 +39,13 @@ OR, follow the instructions here: https://github.com/dcos/terraform-dcos
 
      $ terraform destroy
 
-Make sure your "main.tf" template includes at least the following:
+NOTE: Make sure your "main.tf" template includes at least the following:
 
 - 1 DC/OS Master Node
 - 9 DC/OS Private Agent Nodes
 - 2 DC/OS Public Agent Nodes
 
 Also, make sure you deploy at least 4 CPU cores and 16MB of memory for the private and public agent nodes.
-
-If you want to demonstrate Enterprise DC/OS's multiple region or availability zone capabilities, modify the Terraform templates (main.tf) to include multiple AZs and such.
 
 ### b. Login to the Enterprise DC/OS Dashboard
 
