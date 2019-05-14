@@ -100,7 +100,7 @@ For Ubuntu the commands are:
 
 ### d. Prep the Cluster
 
-To support launching Kubernetes clusters with DC/OS service accounts and SSL certificates, run the prep script that creates the base service account users and their signed certificates using the DC/OS certificate authority (CA).
+To support launching Kubernetes clusters with DC/OS service accounts and SSL certificates, run the prep script that creates the base service account users and their signed certificates using the DC/OS certificate authority (CA). This script also launches 4 example MKE kubernetes clusters (with their api-server proxies) as well as the Spark dispatcher and a Kafka service.
 
     $ scripts/prep-cluster.sh
 
@@ -116,9 +116,9 @@ As part of the demo, you will need to access the public MKE Kubernetes nodes run
 
 Before starting the demo, discuss with the audience what you are going to demonstrate in the next few minutes.
 
-Show the main DC/OS Dashboard and talk about how DC/OS pools resources (CPU, GPU, Memory and Disk) and allocates them dynamically to services that are launched from the Catalog or Services panel.
+Show the main DC/OS Dashboard and talk about how DC/OS pools resources (CPU, GPU, Memory and Disk) and allocates them dynamically to services that are launched from the Catalog or the Services panel.
 
-Show the Nodes panel and show the servers that are being managed by DC/OS.
+Show the Nodes panel and show the servers that are being managed by DC/OS. Discuss how DC/OS is region and zone aware (or rack aware when on-prem) and how workloads can be launched with "placement constraints" to spread them across fault zones.
 
 Show the Components panel and show how all the ecosystem components that are used to manage the cluster and how DC/OS automates the health of those low level components.
 
@@ -131,15 +131,17 @@ Show the Catalog panel and show how pre-packages applications and services can b
 - Spark
 - Cassandra
 
+The prep-cluster.sh script starts an example Spark distpatcher and Kafka service, but at this time use the Catalog to start a Jenksins service. Talk about how the Jenkins service can take advantage of DC/OS's support for persistant storage volumes and how the Jenkins console can be access via the DC/OS Admin Router (authenticated web proxy) component.
+
 When Jenkins starts up, show the Jenkins Console and discuss how customers can use the console or the Jenkins API to setup and manage build/test pipelines.
 
-When the Spark dispatcher starts up, show the Spark console and discuss how multiple Spark environments (with different versions) can be launced for different teams and how DC/OS access control lists can be used to keep the teams separate.  You can run a sample Spark job buy using the 'dcos spark run' command as shown in the file:
+Demonstrate the Spark dispatcher service. Show the Spark console and discuss how multiple Spark environments (with different versions) can be launced for different teams and how DC/OS access control lists can be used to keep the teams separate.  You can run a sample Spark job buy using the 'dcos spark run' command as shown in the file:
 
     examples/spark-examples.txt
 
 ### c. Demonstrate starting multiple Kubernets Clusters
 
-Discuss how Enterprise DC/OS supports "high density" kubernetes clusters and supports launching different versions of Kubernetes clusters to support different development teams. And how DC/OS uses the opensource version of Kubernetes and the kubectl package. And how DC/OS allows kubernetes control plan components and worker node components to be spread across cloud availability zones for HA reasons.
+Discuss how Enterprise DC/OS supports "high density" kubernetes clusters and supports launching different versions of Kubernetes clusters to support different development teams. And how DC/OS uses an un-forked version of the opensource version of Kubernetes and the kubectl package. And how DC/OS allows kubernetes control plan components and worker node components to be spread across cloud availability zones for HA reasons. Use the Dashboard's Services panel to show how the example MKE clusters are running tasks that are spread across availability zones and how (with high density Kubernetes support), DC/OS is running tasks from multiple Kubernetes clusters on the SAME servers or cloud instances!
 
 Use the DC/OS Dashboard Catalog panel to start the Kubernetes Control Plane Manager (the kubernetes package).
 
