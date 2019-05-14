@@ -15,6 +15,16 @@ Before starting the demo session, perform the following:
 
 Launch an Enterprise DC/OS cluster using the Mesosphere DC/OS Universal Installer. 
 
+First modify the cluster/main.tf terraform template file to use your own unique cluster name. This is important because it will create objects in AWS that must have unique names.
+
+     $ vi cluster/main.tf
+
+     Change line: cluster_name = "mycluster-113"
+
+Also, make sure your DC/OS license file is available on your local computer and it is referenced correctly in the main.tf file.
+
+    Change line: dcos_license_key_contents = "${file("~/scripts/license.txt")}"
+
 Use the provided script in:
 
      $ ./scripts/launch_cluster.sh
