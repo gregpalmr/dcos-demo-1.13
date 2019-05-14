@@ -155,7 +155,7 @@ Use the DC/OS Dashboard Catalog panel to start a 5th Kubernetes cluster. Specify
         Private Node Count: 1
         Public Node Count: 0
 
-        Talk about how MKE can implement Kubernetes RBAC with the click of a checkbox and how it can enable HA too (in fact k8s-1 cluster is deployed in HA mode).
+Talk about how MKE can implement Kubernetes RBAC with the click of a checkbox and how it can enable HA too (in fact k8s-1 cluster is deployed in HA mode).
 
 ### d. Demonstrate the Enterprise DC/OS features
 
