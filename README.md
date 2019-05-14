@@ -3,9 +3,9 @@ Basic Enterprise DC/OS 1.13 Demo for mixed workloads including Spark, Kafka, and
 
 ## USAGE
 
-$ git clone https://github.com/gregpalmr/dcos-demo-1.13
+     $ git clone https://github.com/gregpalmr/dcos-demo-1.13
 
-$ cd dcos-demo-1.13
+     $ cd dcos-demo-1.13
 
 ## 1. Setup
 
@@ -17,17 +17,17 @@ Launch an Enterprise DC/OS cluster using the Mesosphere DC/OS Universal Installe
 
 Use the provided script in:
 
-$ ./scripts/launch_cluster.sh
+     $ ./scripts/launch_cluster.sh
 
 OR, follow the instructions here: https://github.com/dcos/terraform-dcos
 
-$ eval $(maws login 110465657741_Mesosphere-PowerUser)
+     $ eval $(maws login 110465657741_Mesosphere-PowerUser)
 
-$ export AWS_DEFAULT_REGION="us-east-1"
+     $ export AWS_DEFAULT_REGION="us-east-1"
 
-$ terraform init -upgrade=true && terraform plan -out plan.out && terraform apply plan.out
+     $ terraform init -upgrade=true && terraform plan -out plan.out && terraform apply plan.out
 
-$ terraform destroy
+     $ terraform destroy
 
 Make sure your "main.tf" template includes at least the following:
 
