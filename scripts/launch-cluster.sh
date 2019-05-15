@@ -65,7 +65,7 @@ cd cluster
 
 eval $(maws login 110465657741_Mesosphere-PowerUser)
 
-if [ ! -f "~/.ssh/id_rsa-terraform" ]
+if [ ! -f ~/.ssh/id_rsa-terraform ]
 then
     echo
     echo " SSL key \"~/.ssh/id_rsa-terraform\" not found, generating one."
