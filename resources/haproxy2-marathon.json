@@ -33,5 +33,5 @@
       "port": 6444
     }
   ],
-  "requirePorts": true
+  "requirePorts": true 
 }
