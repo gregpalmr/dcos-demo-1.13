@@ -32,9 +32,24 @@ fi
 
 echo
 
-# Install the enterprise CLI so we can create service account users and secrets
-echo " Installing dcos-enterprise-cli package "
-dcos package install --cli dcos-enterprise-cli --yes > /dev/null 2>&1
+# If not installed, install the enterprise CLI so we can create
+# service account users and secrets
+cli_security=$(dcos | grep security) #  check if the security subcommand is already installed
+if [ "$cli_security" == "" ]
+then
+    echo
+    echo " CLI package dcos-enterprise-cli not installed. Installing. "
+    result=$(dcos package install dcos-enterprise-cli --yes 2>&1)
+
+    if [[ "$result" == *"Could not access"* ]]
+    then
+        echo ""
+        echo " ERROR: DC/OS Catalog (Universe) is unreachable. See error:"
+        echo ""
+        echo "$result"
+        exit 1
+    fi
+fi
 
 echo " Installing Kubernetes CLI  package "
 dcos package install --cli kubernetes --yes > /dev/null 2>&1
