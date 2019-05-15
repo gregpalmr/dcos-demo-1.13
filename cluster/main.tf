@@ -12,12 +12,17 @@ provider "aws" {
   region = "us-east-1"
 }
 
+resource "random_id" "cluster_name" {
+  prefix      = "mycluster-"
+  byte_length = 2
+}
+
 module "dcos" {
   source = "dcos-terraform/dcos/aws"
 
   #  dcos_instance_os    = "coreos_1855.5.0"
   dcos_instance_os             = "centos_7.5"
-  cluster_name                 = "mycluster-113"
+  cluster_name                 = "${random_id.cluster_name.hex}"
   dcos_version                 = "1.13.0"
   ssh_public_key_file          = "~/.ssh/id_rsa-terraform.pub"
   admin_ips                    = ["0.0.0.0/0"]
@@ -38,7 +43,7 @@ module "dcos" {
   #dcos_install_mode = "${var.dcos_install_mode}"
   #dcos_resolvers = ["169.254.169.253"]
   tags = {
-    owner = "dmennell"
+    owner = "Firstname Lastname"
 
     expiration = "8h"
   }
