@@ -92,7 +92,7 @@ echo " Uninstalling Kubernetes Control Plane Manager package "
 dcos package uninstall --app-id=kubernetes kubernetes --yes > /dev/null 2>&1
 sleep 20
 
-# Remove the secret and service account user for kubernetes cluster1
+# Remove the secret and service account user for kubernetes clusters
 echo
 echo " Removing secret and service account user for MKE cluster k8s-5"
 scripts/remove-k8s-permissions.sh k8s-5
