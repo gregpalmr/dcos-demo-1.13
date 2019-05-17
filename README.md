@@ -9,7 +9,13 @@ Basic Enterprise DC/OS 1.13 Demo for mixed workloads including Spark, Kafka, and
 
 ## 1. Setup
 
-Before starting the demo session, perform the following:
+Before starting the demo session, perform the following steps:
+
+     - Launch a DC/OS 1.13 cluster in AWS
+     - Prep the demo environment by starting Spark, Kafka and several Kubernetes clusters
+     - Create several HAProxy instances to proxy the Kubernetes cluster's API Servers
+     - Setup kubectl for interaction with several of the Kubernetes clusters
+     - Launch the Sock Shop microserves demo pods onto one of the Kubernetes clusters
 
 ### a. Launch an Enterprise DC/OS cluster
 
@@ -25,9 +31,9 @@ First modify the cluster/main.tf terraform template file to use your own unique 
 
      Change line: owner = "Firstname Lastname"
 
-Then run the provided script in:
+Then run the provided script to launch a DC/OS 1.13 cluster in AWS using MAWS for authentication:
 
-     $ ./scripts/launch_cluster.sh
+     $ ./scripts/launch-cluster.sh
 
 OR, follow the instructions here: https://github.com/dcos/terraform-dcos
 
