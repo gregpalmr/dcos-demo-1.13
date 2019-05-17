@@ -148,7 +148,7 @@ Once the DC/OS CLI is installed, install some sub-commands. This is optional if 
 
 ### E. Prep the Cluster
 
-To support launching Kubernetes clusters with DC/OS service accounts and SSL certificates, run the prep script that creates the base service account users and their signed certificates using the DC/OS certificate authority (CA). This script also launches 4 example MKE kubernetes clusters (with their api-server proxies) as well as the Spark dispatcher and a Kafka service.
+To support launching Kubernetes clusters with DC/OS service accounts and SSL certificates, run the prep script that creates the base service account users and their signed certificates using the DC/OS certificate authority (CA). This script also launches four example MKE kubernetes clusters (with their api-server proxies) as well as the Spark dispatcher and a Kafka service.
 
     $ scripts/prep-cluster.sh
 
@@ -288,9 +288,7 @@ Use the following commands to upgrade the second Kubernetes cluster:
 
     $ dcos kubernetes cluster update  --cluster-name=k8s-1 --package-version=2.3.0-1.14.1 --yes
 
-Go to the DC/OS Dashboard and display the "Plans" page for the k8s-1 kubernetes cluster and show the progression of the upgrade.
-
-Show the DC/OS Dashboard Service panel and how the Kubernetes-cluster2 processes are restarting in a rolling fashion.
+Go to the DC/OS Dashboard and display the "Tasks" and "Plans" page for the k8s-1 kubernetes cluster and show the progression of the upgrade. Talk about how the DC/OS MKE control plan is doing an orderly upgrade of the Kubernetes cluster by doing each master node task one at a time (etcd-0, etcd-1, etcd-2 and kube-control-plane-0, kube-control-plane-1, and kube-control-plane-2 and others). All this without requiring the Kubernetes cluster to experience any downtime. Also, if the customer had modified the SSL keys in the service accounts and secrets, those new keys would be installed for each restarted task as well.
 
 ## 3. Summarize what you demonstrated
 
