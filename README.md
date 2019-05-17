@@ -288,7 +288,7 @@ Use the following commands to upgrade the second Kubernetes cluster:
 
     $ dcos kubernetes cluster update  --cluster-name=k8s-1 --package-version=2.3.0-1.14.1 --yes
 
-Go to the DC/OS Dashboard and display the "Tasks" and "Plans" page for the k8s-1 kubernetes cluster and show the progression of the upgrade. Talk about how the DC/OS MKE control plan is doing an orderly upgrade of the Kubernetes cluster by doing each master node task one at a time (etcd-0, etcd-1, etcd-2 and kube-control-plane-0, kube-control-plane-1, and kube-control-plane-2 and others). All this without requiring the Kubernetes cluster to experience any downtime. Also, if the customer had modified the SSL keys in the service accounts and secrets, those new keys would be installed for each restarted task as well.
+Go to the DC/OS Dashboard and display the "Tasks" and "Plans" page for the k8s-1 kubernetes cluster and show the progression of the upgrade. Talk about how the DC/OS MKE control plan is doing an orderly upgrade of the Kubernetes cluster by doing each master node task one at a time (etcd-0, etcd-1, etcd-2, kube-control-plane-0, kube-control-plane-1, and kube-control-plane-2). Mention how all this is done without requiring the Kubernetes cluster to experience any downtime. Also, if the customer had modified the SSL keys in the service accounts and secrets, those new keys would be installed for each restarted task as well.
 
 ## 3. Summarize what you demonstrated
 
