@@ -99,6 +99,7 @@ This script will do the following:
 - Generates a new public and private SSL key pair to be used to SSH into the AWS instances to be created. The keys are stored in:
 
      ~/.ssh/id_rsa-terraform 
+
      ~/.ssh/id_rsa-terraform.pub
 
 - Runs the terraform commands against the cluster/main.tf template file to generate a plan and to apply the plan.
@@ -165,7 +166,7 @@ This script will do the following:
 
 As part of the demo, you will need to access the public MKE Kubernetes nodes running on the public DC/OS agent nodes. Use the following command to get the public IP address of those DC/OS public agent nodes.
 
-    scripts/get-dcos-public-agent-ip.sh 2
+    $ scripts/get-dcos-public-agent-ip.sh 2
 
 NOTE: This is done for you at the end of the prep-cluster.sh script, so you can see the public ip address at the end of the output.
 
@@ -266,9 +267,9 @@ Use the DC/OS CLI to upgrade the second Kubernetes cluster from 1.13.5 to the la
 
 Use the following commands to upgrade the second Kubernetes cluster:
 
-    dcos package install kubernetes --cli --package-version=2.3.0-1.14.1 --yes
+    $ dcos package install kubernetes --cli --package-version=2.3.0-1.14.1 --yes
 
-    dcos kubernetes cluster update  --cluster-name=k8s-1 --package-version=2.3.0-1.14.1 --yes
+    $ dcos kubernetes cluster update  --cluster-name=k8s-1 --package-version=2.3.0-1.14.1 --yes
 
 Go to the DC/OS Dashboard and display the "Plans" page for the k8s-1 kubernetes cluster and show the progression of the upgrade.
 
@@ -282,13 +283,13 @@ Summarize, for the audience, what you just demonstrated and how it can help cust
 
 To reset the DC/OS cluster to a new state, run the script:
 
-    scripts/reset-demo.sh
+     $ scripts/reset-demo.sh
 
 ## 5. Destroy the DC/OS cluster
 
 To destroy the DC/OS cluster that was launched by the Mesosphere DC/OS Universal Installer, run this script:
 
-     scripts/destroy-cluster.sh
+     $ scripts/destroy-cluster.sh
 
 ## TODO
 
