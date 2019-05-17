@@ -11,13 +11,16 @@ Basic Enterprise DC/OS 1.13 Demo for mixed workloads including Spark, Kafka, and
 
 Before starting the demo session, perform the following steps:
 
+- Install the prerequisites (AWS cli, MAWS, DC/OS cli, Kubernetes cli)
 - Launch a DC/OS 1.13 cluster in AWS
 - Prep the demo environment by starting Spark, Kafka and several Kubernetes clusters
 - Create several HAProxy instances to proxy the Kubernetes cluster's API Servers
 - Setup kubectl for interaction with several of the Kubernetes clusters
 - Launch the Sock Shop microserves demo pods onto one of the Kubernetes clusters
 
-### a. Launch an Enterprise DC/OS cluster
+### a. Install the Prerequisites
+
+### b. Launch an Enterprise DC/OS cluster
 
 Launch an Enterprise DC/OS cluster using the Mesosphere DC/OS Universal Installer. 
 
@@ -53,13 +56,13 @@ NOTE: Make sure your "main.tf" template includes at least the following:
 
 Also, make sure you deploy at least 4 CPU cores and 16MB of memory for the private and public agent nodes.
 
-### b. Login to the Enterprise DC/OS Dashboard
+### c. Login to the Enterprise DC/OS Dashboard
 
 Point your web browser to DC/OS master node and login as the default superuser (bootstrapuser/deleteme). The master node Dashboard URL is:
 
     https://<master node public ip address>
 
-### c. Install the DC/OS command line interface (CLI)
+### d. Install the DC/OS command line interface (CLI)
 
 In the DC/OS Dashboard, click on the drop down menu in the upper right side of hte Dashboard and follow the instructions for installing the DC/OS CLI binary for your OS.
 
@@ -112,17 +115,29 @@ For Ubuntu the commands are:
     $ sudo apt-get update
     $ sudo apt-get install -y kubectl
 
-### d. Prep the Cluster
+### e. Prep the Cluster
 
 To support launching Kubernetes clusters with DC/OS service accounts and SSL certificates, run the prep script that creates the base service account users and their signed certificates using the DC/OS certificate authority (CA). This script also launches 4 example MKE kubernetes clusters (with their api-server proxies) as well as the Spark dispatcher and a Kafka service.
 
     $ scripts/prep-cluster.sh
 
-### e. Get the public IP addresses of the DC/OS public agent nodes. 
+This script will do the following:
+
+- Create DC/OS service account users for k8s-1 through k8s-5 along with thier DC/OS permissions.
+- Create DC/OS secrets with SSL certificates for the above users to be used for enabling TLS.
+- Launch the MKE Kubernetes control plane manager (catalog package: Kubernetes).
+- Launch four example MKE Kubernetes Clusters (catalog package: Kubernetes Cluster). These clusters will have varying Kubernetes version numbers and will be spread across three availability zones to demonstration high density kubernetes and zone awareness.
+- Call the scripts/start-proxies.sh script to launch two HAProxy services to proxy the Kubernetes API Server objects for two of the MKE Kubernetes clusters (k8s-1 and k8s-2).
+- Call the scripts/setup-kubectl.sh script to setup the Kubernetes cli (kubectl) for two of the MKE Kubernetes clusters (k8s-1 and k8s2) and launch a Chrome browser session for the Kubernetes Dashboard for the k8s-1 cluster.
+- Call the scripts/start-sockshop-pods.sh script to start the Sock Shop microservices demo into pods in the k8s-1 cluster and to launch a Chrome browser session for the Sock Shop shopping cart web page.
+
+### f. Get the public IP addresses of the DC/OS public agent nodes. 
 
 As part of the demo, you will need to access the public MKE Kubernetes nodes running on the public DC/OS agent nodes. Use the following command to get the public IP address of those DC/OS public agent nodes.
 
     scripts/get-dcos-public-agent-ip.sh 2
+
+NOTE: This is done for you at the end of the prep-cluster.sh script, so you can see the public ip address at the end of the output.
 
 ## 2. Demo
 
