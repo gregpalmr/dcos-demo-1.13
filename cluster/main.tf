@@ -27,7 +27,7 @@ module "dcos" {
   ssh_public_key_file          = "~/.ssh/id_rsa-terraform.pub"
   admin_ips                    = ["0.0.0.0/0"]
   num_masters                  = "1"
-  num_private_agents           = "9"
+  num_private_agents           = "10"
   num_public_agents            = "2"
   bootstrap_instance_type      = "t2.medium"
   public_agents_instance_type  = "t3.xlarge"
