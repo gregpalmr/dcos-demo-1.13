@@ -68,7 +68,15 @@ First modify the cluster/main.tf terraform template file to use your own unique 
 
      Change line: owner = "Firstname Lastname"
 
-Then run the provided script to launch a DC/OS 1.13 cluster in AWS using MAWS for authentication:
+The default AWS region is set to "US EAST 1". If you want to change the region and availability zones, change the following lines in the main.tf file:
+
+     $ vi cluster/main.tf
+
+     Change line: region = "us-east-1"
+
+     Change line: availability_zones = ["us-east-1a", "us-east-1b", "us-east-1c"]
+
+Then run the provided script to launch a DC/OS 1.13 cluster in AWS using the DC/OS Universal Installer:
 
      $ ./scripts/launch-cluster.sh
 
@@ -84,11 +92,9 @@ OR, follow the instructions here: https://github.com/dcos/terraform-dcos
 
 NOTE: Make sure your "main.tf" template includes at least the following:
 
--  1 DC/OS Master Node
-- 10 DC/OS Private Agent Nodes
--  2 DC/OS Public Agent Nodes
-
-Also, make sure you deploy at least 4 CPU cores and 16MB of memory for the private and public agent nodes.
+-  1 DC/OS Master Node - with 4 vCPUs each
+- 10 DC/OS Private Agent Nodes - with 8 vCPUs each
+-  2 DC/OS Public Agent Nodes - with 4 vPCUs each
 
 ### c. Login to the Enterprise DC/OS Dashboard
 
@@ -98,7 +104,7 @@ Point your web browser to DC/OS master node and login as the default superuser (
 
 ### d. Install the DC/OS command line interface (CLI)
 
-In the DC/OS Dashboard, click on the drop down menu in the upper right side of hte Dashboard and follow the instructions for installing the DC/OS CLI binary for your OS.
+In the DC/OS Dashboard, click on the drop down menu in the upper right side of the dashboard and follow the instructions for installing the DC/OS CLI binary for your OS.
 
 Then run the cluster setup command:
 
