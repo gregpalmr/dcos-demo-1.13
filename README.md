@@ -20,6 +20,40 @@ Before starting the demo session, perform the following steps:
 
 ### a. Install the Prerequisites
 
+This demo environment requires several packages to be installed and working. Install them using these steps.
+
+- AWS cli
+
+Install the AWS command line interface on a Mac using this command:
+
+     $ brew install awscli
+
+- MAWS for AWS authentication
+
+If you are a Mesosphere mesosnaut, then you will have to use the Mesosphere version of MAWS. If you are not a mesosnaut, then you can use some other means of setting up your AWS IAM environment.
+
+See: https://github.com/mesosphere/maws 
+
+     $ brew install maws
+
+- DC/OS cli
+
+Install the DC/OS command line interface by following the instructions on the DC/OS Dashboard (upper right corner). On a Mac, it would be similar to these commands:
+
+     $ [ -d /usr/local/bin ] || sudo mkdir -p /usr/local/bin && \
+       curl https://downloads.dcos.io/binaries/cli/darwin/x86-64/dcos-1.13/dcos -o dcos && \
+       sudo mv dcos /usr/local/bin && sudo chmod +x /usr/local/bin/dcos
+
+     $ dcos cluster setup https://<master node public ip address>  
+
+NOTE: You must use the HTTPS url and not the default HTTP url for the demo-prep.sh script to work (it checks for it).
+
+- Kubernetes cli
+
+The Kubernetes command line interface (kubectl) can be installed using these commands:
+
+     $ brew install kubectl
+
 ### b. Launch an Enterprise DC/OS cluster
 
 Launch an Enterprise DC/OS cluster using the Mesosphere DC/OS Universal Installer. 
@@ -50,9 +84,9 @@ OR, follow the instructions here: https://github.com/dcos/terraform-dcos
 
 NOTE: Make sure your "main.tf" template includes at least the following:
 
-- 1 DC/OS Master Node
-- 9 DC/OS Private Agent Nodes
-- 2 DC/OS Public Agent Nodes
+-  1 DC/OS Master Node
+- 10 DC/OS Private Agent Nodes
+-  2 DC/OS Public Agent Nodes
 
 Also, make sure you deploy at least 4 CPU cores and 16MB of memory for the private and public agent nodes.
 
