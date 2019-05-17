@@ -193,7 +193,7 @@ Show the Catalog panel and show how pre-packages applications and services can b
 
 The prep-cluster.sh script starts an example Spark distpatcher and Kafka service, but at this time use the Catalog to start a Jenksins service. Talk about how the Jenkins service can take advantage of DC/OS's support for persistant storage volumes and how the Jenkins console can be access via the DC/OS Admin Router (authenticated web proxy) component.
 
-When Jenkins starts up, show the Jenkins Console and discuss how customers can use the console or the Jenkins API to setup and manage build/test pipelines.
+When Jenkins starts up, show the Jenkins Console and discuss how customers can use the console or the Jenkins API to setup and manage build/test pipelines and how they can be deployed via Marathon or Kubernetes.
 
 Demonstrate the Spark dispatcher service. Show the Spark console and discuss how multiple Spark environments (with different versions) can be launced for different teams and how DC/OS access control lists can be used to keep the teams separate.  You can run a sample Spark job buy using the 'dcos spark run' command as shown in the file:
 
@@ -201,7 +201,9 @@ Demonstrate the Spark dispatcher service. Show the Spark console and discuss how
 
 ### c. Demonstrate starting multiple Kubernets Clusters
 
-Discuss how Enterprise DC/OS supports "high density" kubernetes clusters and supports launching different versions of Kubernetes clusters to support different development teams. And how DC/OS uses an un-forked version of the opensource version of Kubernetes and the kubectl package. And how DC/OS allows kubernetes control plan components and worker node components to be spread across cloud availability zones for HA reasons. Use the Dashboard's Services panel to show how the example MKE clusters are running tasks that are spread across availability zones and how (with high density Kubernetes support), DC/OS is running tasks from multiple Kubernetes clusters on the SAME servers or cloud instances!
+Discuss how Enterprise DC/OS combined with the Mesosphere Kubernetes Engine or MKE supports "high density" kubernetes clusters that enable launching different versions of Kubernetes clusters to support different development teams. And how DC/OS uses an un-forked version of the opensource version of Kubernetes and the kubectl package. And how DC/OS allows kubernetes control plan components and worker node components to be spread across cloud availability zones for HA reasons. 
+
+Use the Dashboard's Services panel to show how the example MKE clusters are running tasks that are spread across availability zones and how (with high density Kubernetes support) DC/OS is running tasks from multiple Kubernetes clusters on the SAME servers or cloud instances!
 
 Use the DC/OS Dashboard Catalog panel to start a 5th Kubernetes cluster. Specify the service account user and secrets like this:
 
@@ -219,11 +221,12 @@ Talk about how MKE can implement Kubernetes RBAC with the click of a checkbox an
 
 ### d. Demonstrate the Enterprise DC/OS features
 
-While the two Kubernets clusters are launching, use the DC/OS Dashboard to show how DC/OS:
+While the new Kubernets clusters is launching, use the DC/OS Dashboard to show how DC/OS:
 
 - Integrates with LDAP/AD servers
 - Integrates with SAML 2.0 and OAuth2 authention servers
 - Supports encrypted secrets
+- Provides multi-tenancy at the administrator level by enforcing access control list permissions
 
 Create two user groups (mobile-apps and enterprise-apps), then create a user and add it to the mobile-apps group.
 
@@ -249,7 +252,21 @@ The prep-cluser.sh script called the setup-kubectl.sh script which setup the kub
 
     http://<public agent public ip address>:30001
 
-You can also demonstrate interacting with the Kubernetes cluster using other  kubectl commands. Some example kubectl commands can be found in:
+Talk about how the sock shop application was deployed as pods onto the Kubernetes cluster, including the user interface components, the business rules and the backend messaging and database components (RabbitMQ and MongoDB). Show the Sock Shop Pods running by selectin the "sockshop" namespace in the Kubernetes Dashboard, or by running the kubectl command:
+
+     $ kubectl -n sock-shop get pods
+
+Show how you can use the kubectl command to scale the sock shop's user interface microservices by running the commands:
+
+     $ kubectl -n sock-shop get deployment front-end
+
+     $ kubectl -n sock-shop scale deployment front-end --replicas=3
+
+     $ kubectl -n sock-shop get deployment front-end
+
+Or, you can do the same thing in the Kubernetes Dashbaord, but clicking on the "Deployments" panel, then selecting the "..." dropdown menu option for "Scale".
+
+You can also demonstrate interacting with the Kubernetes cluster using other kubectl commands. Some example kubectl commands can be found in:
 
     examples/kubectl-examples.txt
 
