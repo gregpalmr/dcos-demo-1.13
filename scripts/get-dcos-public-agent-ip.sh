@@ -55,7 +55,7 @@ do
     public_ip=`dcos task log $task_id stdout | tail -1`
 
     echo
-    echo " Public agent node found:  public IP is: $public_ip | http://$public_ip:9090/haproxy?stats "
+    echo " Public agent node found:  public IP is: $public_ip "
 
 done
 
