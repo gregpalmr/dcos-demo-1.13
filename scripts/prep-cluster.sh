@@ -175,4 +175,6 @@ echo
 echo " Launching Kubernetes Microservices Demo App: SockShop"
 scripts/start-sockshop-pods.sh
 
+scripts/get-dcos-public-agent-ip.sh
+
 # end of script
