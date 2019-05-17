@@ -8,6 +8,16 @@
 # AUTHOR: Greg Palmer
 #
 
+# Check if the resources directory exists
+if [ ! -d "./resources" ]
+then
+    echo
+    echo " Error: directory \"./resources\" not found. Please run this script"
+    echo "        from the dcos-demo-1.13 directory."
+    echo
+    exit 1
+fi
+
 # Check if the DC/OS CLI command is installed
 result=$(which dcos)
 if [ "$result" == "" ]

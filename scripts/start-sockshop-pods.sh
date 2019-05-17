@@ -7,6 +7,16 @@
 #
 #git clone https://github.com/microservices-demo/microservices-demo
 
+# Check if the resources directory exists
+if [ ! -d "./resources" ]
+then
+    echo
+    echo " Error: directory \"./resources\" not found. Please run this script"
+    echo "        from the dcos-demo-1.13 directory."
+    echo
+    exit 1
+fi
+
 echo
 echo " Creating namespace: shock-shop"
 kubectl create namespace sock-shop
@@ -39,8 +49,10 @@ echo
 echo
 echo " To destroy the sock-shop application components, run these commands:"
 echo
+
 # Destroy the demo 
 #
+echo "     kubectl -n sock-shop get pods "
 echo "     kubectl -n sock-shop delete pods,svc,deployment --all "
 echo "     kubectl delete namespace sock-shop "
 
