@@ -11,7 +11,7 @@ Basic Enterprise DC/OS 1.13 Demo for mixed workloads including Spark, Kafka, and
 
 Before starting the demo session, perform the following steps:
 
-- Install the prerequisites (AWS cli, MAWS, DC/OS cli, Kubernetes cli)
+- Install the prerequisites (AWS cli, MAWS, DC/OS cli, Kubernetes cli, Terraform, and ssh-keygen)
 - Launch a DC/OS 1.13 cluster in AWS
 - Prep the demo environment by starting Spark, Kafka and several Kubernetes clusters
 - Create several HAProxy instances to proxy the Kubernetes cluster's API Servers
@@ -50,9 +50,19 @@ NOTE: You must use the HTTPS url and not the default HTTP url for the demo-prep.
 
 #### Kubernetes cli
 
-The Kubernetes command line interface (kubectl) can be installed using these commands:
+The Kubernetes command line interface (kubectl) can be installed on a Mac using these commands:
 
      $ brew install kubectl
+
+#### Terraform cli
+
+The Terraform command line interface can be installed on a Mac using these commands:
+
+     $ brew install terraform
+
+#### ssh-keygen and ssh-add
+
+If your Mac does not have these utilities installed, call your IT helpdesk and ask for instructions on how to install them.
 
 ### b. Launch an Enterprise DC/OS cluster
 
@@ -79,6 +89,19 @@ The default AWS region is set to "US EAST 1". If you want to change the region a
 Then run the provided script to launch a DC/OS 1.13 cluster in AWS using the DC/OS Universal Installer:
 
      $ ./scripts/launch-cluster.sh
+
+This script will do the following:
+
+- Run the MAWS command to initialize an AWS cli session. It puts the results in:
+
+     ~/.aws/credentials
+
+- Generates a new public and private SSL key pair to be used to SSH into the AWS instances to be created. The keys are stored in:
+
+     ~/.ssh/id_rsa-terraform 
+     ~/.ssh/id_rsa-terraform.pub
+
+- Runs the terraform commands against the cluster/main.tf template file to generate a plan and to apply the plan.
 
 OR, follow the instructions here: https://github.com/dcos/terraform-dcos
 
