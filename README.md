@@ -22,13 +22,13 @@ Before starting the demo session, perform the following steps:
 
 This demo environment requires several packages to be installed and working. Install them using these steps.
 
-- AWS cli
+#### AWS cli
 
 Install the AWS command line interface on a Mac using this command:
 
      $ brew install awscli
 
-- MAWS for AWS authentication
+#### MAWS for AWS authentication
 
 If you are a Mesosphere mesosnaut, then you will have to use the Mesosphere version of MAWS. If you are not a mesosnaut, then you can use some other means of setting up your AWS IAM environment.
 
@@ -36,7 +36,7 @@ See: https://github.com/mesosphere/maws
 
      $ brew install maws
 
-- DC/OS cli
+#### DC/OS cli
 
 Install the DC/OS command line interface by following the instructions on the DC/OS Dashboard (upper right corner). On a Mac, it would be similar to these commands:
 
@@ -48,7 +48,7 @@ Install the DC/OS command line interface by following the instructions on the DC
 
 NOTE: You must use the HTTPS url and not the default HTTP url for the demo-prep.sh script to work (it checks for it).
 
-- Kubernetes cli
+#### Kubernetes cli
 
 The Kubernetes command line interface (kubectl) can be installed using these commands:
 
