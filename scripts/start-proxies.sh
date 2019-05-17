@@ -71,4 +71,11 @@ scripts/setup-kubectl.sh
 echo
 echo
 
+echo
+echo " Access the Kubernetes API Server HAProxy Stats consoles at: "
+echo 
+echo "    https://<public agent public ip address>:9091:/haproxy?stats "
+echo "    and "
+echo "    https://<public agent public ip address>:9092:/haproxy?stats "
+
 # End of script
