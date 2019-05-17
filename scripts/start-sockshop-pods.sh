@@ -38,12 +38,18 @@ echo " Note, the sock-shop app uses nodeport 30001"
 
 echo
 echo " Getting public ip addresses of your public agent nodes"
-get-dcos-public-agent-ip.sh
+echo
+
+HAPROXY1_PUB_IP=$(priv_ip=$(dcos task k8s-api-proxies_k8s-1 | grep -v HOST | awk '{print $2}') && dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --master-proxy --private-ip=$priv_ip --user=centos "curl http://169.254.169.254/latest/meta-data/public-ipv4");
+
+echo 
+echo " Opening a Google Chrome Tab for the Sock Shop Demo web page"
+open -a "Google Chrome" http://${HAPROXY1_PUB_IP}:30001
 
 echo
-echo " Point your web browser to this URL:"
+echo "OR,  To view the sock shop web page, point your web browser to this URL:"
 echo
-echo " http://<public agent ip>:30001 "
+echo "     http://${HAPROXY1_PUB_IP}:30001 "
 echo
 
 echo
