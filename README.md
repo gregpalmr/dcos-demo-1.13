@@ -18,7 +18,7 @@ Before starting the demo session, perform the following steps:
 - Setup kubectl for interaction with several of the Kubernetes clusters
 - Launch the Sock Shop microserves demo pods onto one of the Kubernetes clusters
 
-### a. Install the Prerequisites
+### A. Install the Prerequisites
 
 This demo environment requires several packages to be installed and working. Install them using these steps.
 
@@ -64,7 +64,7 @@ The Terraform command line interface can be installed on a Mac using these comma
 
 If your Mac does not have these utilities installed, call your IT helpdesk and ask for instructions on how to install them.
 
-### b. Launch an Enterprise DC/OS cluster
+### B. Launch an Enterprise DC/OS cluster
 
 Launch an Enterprise DC/OS cluster using the Mesosphere DC/OS Universal Installer. 
 
@@ -120,13 +120,13 @@ NOTE: Make sure your "main.tf" template includes at least the following:
 - 10 DC/OS Private Agent Nodes - with 8 vCPUs each
 -  2 DC/OS Public Agent Nodes - with 4 vPCUs each
 
-### c. Login to the Enterprise DC/OS Dashboard
+### C. Login to the Enterprise DC/OS Dashboard
 
 Point your web browser to DC/OS master node and login as the default superuser (bootstrapuser/deleteme). The master node Dashboard URL is:
 
     https://<master node public ip address>
 
-### d. Install the DC/OS command line interface (CLI)
+### D. Install the DC/OS command line interface (CLI)
 
 In the DC/OS Dashboard, click on the drop down menu in the upper right side of the dashboard and follow the instructions for installing the DC/OS CLI binary for your OS.
 
@@ -146,7 +146,7 @@ Once the DC/OS CLI is installed, install some sub-commands. This is optional if 
 
     $ dcos package install dcos-enterprise-cli --yes
 
-### e. Prep the Cluster
+### E. Prep the Cluster
 
 To support launching Kubernetes clusters with DC/OS service accounts and SSL certificates, run the prep script that creates the base service account users and their signed certificates using the DC/OS certificate authority (CA). This script also launches 4 example MKE kubernetes clusters (with their api-server proxies) as well as the Spark dispatcher and a Kafka service.
 
@@ -162,7 +162,7 @@ This script will do the following:
 - Call the scripts/setup-kubectl.sh script to setup the Kubernetes cli (kubectl) for two of the MKE Kubernetes clusters (k8s-1 and k8s2) and launch a Chrome browser session for the Kubernetes Dashboard for the k8s-1 cluster.
 - Call the scripts/start-sockshop-pods.sh script to start the Sock Shop microservices demo into pods in the k8s-1 cluster and to launch a Chrome browser session for the Sock Shop shopping cart web page.
 
-### f. Get the public IP addresses of the DC/OS public agent nodes. 
+### F. Get the public IP addresses of the DC/OS public agent nodes. 
 
 As part of the demo, you will need to access the public MKE Kubernetes nodes running on the public DC/OS agent nodes. Use the following command to get the public IP address of those DC/OS public agent nodes.
 
@@ -172,7 +172,7 @@ NOTE: This is done for you at the end of the prep-cluster.sh script, so you can 
 
 ## 2. Demo
 
-### a. DC/OS Overview
+### A. DC/OS Overview
 
 Before starting the demo, discuss with the audience what you are going to demonstrate in the next few minutes.
 
@@ -184,7 +184,7 @@ Show the Components panel and show how all the ecosystem components that are use
 
 Show the Catalog panel and show how pre-packages applications and services can be launched easily from the package catalog and how customers can add their own packages using the DC/OS Universe github repo tools (see https://github.com/mesosphere/universe). Show the Settings->Package Reposities panel and discus how customers can add their own repos behind their firewall for private use.
 
-### b. Demonstrate starting mixed workloads including:
+### B. Demonstrate starting mixed workloads including:
 
 - Jenkins
 - Kafka
@@ -199,7 +199,7 @@ Demonstrate the Spark dispatcher service. Show the Spark console and discuss how
 
     examples/spark-examples.txt
 
-### c. Demonstrate starting multiple Kubernets Clusters
+### C. Demonstrate starting multiple Kubernets Clusters
 
 Discuss how Enterprise DC/OS combined with the Mesosphere Kubernetes Engine or MKE supports "high density" kubernetes clusters that enable launching different versions of Kubernetes clusters to support different development teams. And how DC/OS uses an un-forked version of the opensource version of Kubernetes and the kubectl package. And how DC/OS allows kubernetes control plan components and worker node components to be spread across cloud availability zones for HA reasons. 
 
@@ -219,7 +219,7 @@ Use the DC/OS Dashboard Catalog panel to start a 5th Kubernetes cluster. Specify
 
 Talk about how MKE can implement Kubernetes RBAC with the click of a checkbox and how it can enable HA too (in fact k8s-1 cluster is deployed in HA mode).
 
-### d. Demonstrate the Enterprise DC/OS features
+### D. Demonstrate the Enterprise DC/OS features
 
 While the new Kubernets clusters is launching, use the DC/OS Dashboard to show how DC/OS:
 
@@ -246,7 +246,7 @@ Show how DC/OS does not allow the user to start MySQL into that application grou
 
 And show how DC/OS allows that and by looking at the Services panel, how the MySQL package is "deploying".
 
-### e. Demonstrate kubctl commands
+### E. Demonstrate kubctl commands
 
 The prep-cluser.sh script called the setup-kubectl.sh script which setup the kubectl command pointing to the k8s-1 cluster. Additionally the start-sockshop-pods.sh script was called to load the sockshop microservices example application running with nodeport functionality in Kubernetes pods. Point your web browser to one of the DC/OS public agent nodes running and point to the Sockshop shopping cart example app:
 
@@ -274,7 +274,7 @@ If you want to demonstrate installing Helm and a Heml Chart, you can experiment 
 
     examples/helm-examples.txt
 
-### f. Demonstrate upgrading a Kubernetes cluster
+### F. Demonstrate upgrading a Kubernetes cluster
 
 Discuss how Enterprise DC/OS automates the process of upgrading, in a rolling fashion, the upgrading of Kubernetes clusters without disrupting the pods running on the Kubernetes cluster. Also, discuss how DC/OS has a built-in CLI command that can backup the Kubernetes cluster meta-data (from the etcd daemons) so that a Kubernetes cluster's state can be restored from a backup in the case of a failure or building a new Kubernetes cluster.
 
