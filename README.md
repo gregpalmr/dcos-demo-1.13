@@ -11,11 +11,11 @@ Basic Enterprise DC/OS 1.13 Demo for mixed workloads including Spark, Kafka, and
 
 Before starting the demo session, perform the following steps:
 
-     - Launch a DC/OS 1.13 cluster in AWS
-     - Prep the demo environment by starting Spark, Kafka and several Kubernetes clusters
-     - Create several HAProxy instances to proxy the Kubernetes cluster's API Servers
-     - Setup kubectl for interaction with several of the Kubernetes clusters
-     - Launch the Sock Shop microserves demo pods onto one of the Kubernetes clusters
+- Launch a DC/OS 1.13 cluster in AWS
+- Prep the demo environment by starting Spark, Kafka and several Kubernetes clusters
+- Create several HAProxy instances to proxy the Kubernetes cluster's API Servers
+- Setup kubectl for interaction with several of the Kubernetes clusters
+- Launch the Sock Shop microserves demo pods onto one of the Kubernetes clusters
 
 ### a. Launch an Enterprise DC/OS cluster
 
