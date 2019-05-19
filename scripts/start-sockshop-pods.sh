@@ -44,6 +44,7 @@ HAPROXY1_PUB_IP=$(priv_ip=$(dcos task k8s-api-proxies_k8s-1 | grep -v HOST | awk
 
 echo 
 echo " Opening a Google Chrome Tab for the Sock Shop Demo web page"
+sleep 3
 open -a "Google Chrome" http://${HAPROXY1_PUB_IP}:30001
 
 echo
