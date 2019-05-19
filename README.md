@@ -176,6 +176,10 @@ NOTE: This is done for you at the end of the prep-cluster.sh script, so you can 
 
 Before starting the demo, discuss with the audience what you are going to demonstrate in the next few minutes.
 
+Show this presentation slide to aid in the overvew discussion.
+
+![DC/OS Overview](/resources/images/Mesosphere-DCOS-Overview.jpg?raw=true)
+
 Show the main DC/OS Dashboard and talk about how DC/OS pools resources (CPU, GPU, Memory and Disk) and allocates them dynamically to services that are launched from the Catalog or the Services panel.
 
 Show the Nodes panel and show the servers that are being managed by DC/OS. Discuss how DC/OS is region and zone aware (or rack aware when on-prem) and how workloads can be launched with "placement constraints" to spread them across fault zones.
