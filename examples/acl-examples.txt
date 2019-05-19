@@ -1,22 +1,22 @@
 
                  Advanced ACLs 
 
-mobile-apps:
+mobileapps:
 
 dcos:adminrouter:service:marathon 			full
-dcos:service:marathon:marathon:services:/mobile-apps 	full  
+dcos:service:marathon:marathon:services:/mobileapps 	full  
 dcos:adminrouter:ops:slave 				full
 dcos:adminrouter:ops:mesos 				full
 dcos:adminrouter:package 				full
-dcos:secrets:default:/mobile-apps create,read,update,delete
+dcos:secrets:default:/mobileapps create,read,update,delete
 
-###
 
-#!/bin/bash
+webapps:
 
-while true
-do
-    curl -s 1.2.3.4:80 > /dev/null
-done
-
+dcos:adminrouter:service:marathon 			full
+dcos:service:marathon:marathon:services:/webapps 	full  
+dcos:adminrouter:ops:slave 				full
+dcos:adminrouter:ops:mesos 				full
+dcos:adminrouter:package 				full
+dcos:secrets:default:/webapps create,read,update,delete
 
