@@ -244,19 +244,53 @@ Note that DC/OS is monitoring the health of these worker nodes so that if one of
 
 [SHOW]
 
-Show the Components panel.
+Click on the Components menu link on the left pane to show the health status of the DC/OS Components.
 
 ![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard-Components.jpg?raw=true)
 
 [SAY]
-and show how all the ecosystem components that are used to manage the cluster and how DC/OS automates the health of those low level components.
+
+DC/OS deploys all the ecosystem components that are used to manage the cluster and it monitors the health of these system components. This console shows the health of each component, but DC/OS can also send log messages and health status information to your favorite log management system such as Splunk, Data Dog, ELK, and others.
 
 [SHOW]
 
-Show the Catalog panel and show how pre-packages applications and services can be launched easily from the package catalog and how customers can add their own packages using the DC/OS Universe github repo tools (see https://github.com/mesosphere/universe). Show the Settings->Package Reposities panel and discus how customers can add their own repos behind their firewall for private use.
+Click on the Catalog menu link on the left pane to show the DC/OS Package Catalog.
+
+![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard-Catalog.jpg?raw=true)
 
 [SAY]
-xxx
+
+The DC/OS Package Catalog provides certified and community supported pre-built software packages that can easily be deployed to a on-prem or cloud-based cluster. Certified packages are supported by Mesosphere and our partners such as Datastax or Cassandra, Confluent for Kafka, Percona for MongoDB and Lightbend for Spark.
+
+[SHOW]
+
+In the Catalog search box, type in "sql" and press the search button to show the packages that are database oriented. Within the search results, scroll down the list.
+
+![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard-Catalog-SQL.jpg?raw=true)
+
+[SAY]
+
+There are over 100 packages in the Catalog that can easily be deployed, here are some example packages that are database oriented. See how memsql, Postgres, MySQL, CockroachDB, MongoDB and other database packages are available for installing?
+
+[SHOW]
+
+In the Catalog search box, type in "monitor" and press the search button to show the packages that are monitoring oriented. Within the search results, scroll down the list.
+
+![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard-Catalog-Monitor.jpg?raw=true)
+
+[SAY]
+
+Here are some more example packages that are monitoring oriented. See how Sysdig, Weavescope, dynatrace, datadog, Instana and other monitoring  packages are available for installing? Also, see this package called DC/OS Monitoring? Well that is a new package we are in the process of certifying and supporting that deploys Prometheus and Grafana as an easy way to capture and present log data and metrics.
+
+[SHOW]
+
+Click on the Settings->Package Repositories menu link on the left panel to display the package repositories list. Then click on the plus sign (+) in the upper right corner to add a new repository.
+
+![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard-Catalog-Add-Repository.jpg?raw=true)
+
+[SAY]
+
+By the way, while Mesosphere maintains this default package Catalog, you are not limited to installing only these software packages. Customers can add their own packages to the Catalog using the DC/OS Universe github repo tools to create new package Catalog objects.  In this way, customers can add their own package Catalog repos behind their firewall for private use.
 
 ### B. Demonstrate starting mixed workloads including:
 
