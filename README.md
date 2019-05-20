@@ -276,7 +276,7 @@ Click on the Nodes menu link on the left pane to show the DC/OS agents running w
 
 I want to mention here, that we didn't have to stage and configure seperate servers or cloud instances for each Kubernetes cluster, Kafka broker or Spark environment. Instead, we let DC/OS use its bin packing capabilities to share the resources on the worker nodes in a fine grained manner.  When I click on one of these servers, you can see there are tasks from different services running on the same server. Here are tasks from two different Kubernetes clusters (we call that high density Kubernetes) and a Spark dispatcher task.
 
-This is very different than the way cloud vendors allocate resources. If I was running Elastic Map Reduce or EMR on an AWS environment and then wanted to desploy an Elastic Kubernetes Service, AWS would not check to see if I had any CPU, Memory and Disk available on my EMR cluster and then use it for the EKS cluster. It would simply spin up more cloud instances to run EKS and charge me more for it, even though I may have had resources available on my existing cloud instances. It is obvious that with bin packing, DC/OS can same me a ton of money by running more things on fewer cloud instances than the cloud vendors would ever allow. And this same concept works on-prem too. 
+This is very different than the way cloud vendors allocate resources. If I was running Elastic Map Reduce or EMR on an AWS environment and then wanted to desploy an Elastic Kubernetes Service, AWS would not check to see if I had any CPU, Memory and Disk available on my EMR cluster and then use it for the EKS cluster. It would simply spin up more cloud instances to run EKS and charge me more for it, even though I may have had resources available on my existing cloud instances. It is obvious that with bin packing, DC/OS can save me a ton of money by running more things on fewer cloud instances than the cloud vendors would ever allow. And this same concept works on-prem too. 
 
 ### D. DC/OS Package Catalog
 
@@ -320,21 +320,46 @@ Click on the Settings->Package Repositories menu link on the left panel to displ
 
 By the way, while Mesosphere maintains this default package Catalog, you are not limited to installing only these software packages. Customers can add their own packages to the Catalog using the DC/OS Universe github repo tools to create new Catalog packages. In this way, customers can add their own package Catalog repos behind their firewall for private use.
 
+
 ### E. Demonstrate starting mixed workloads including:
 
 - Jenkins
-- Kafka
 - Cassandra
 
-The prep-cluster.sh script starts an example Spark distpatcher and Kafka service, but at this time use the Catalog to start a Jenksins service. Talk about how the Jenkins service can take advantage of DC/OS's support for persistant storage volumes and how the Jenkins console can be access via the DC/OS Admin Router (authenticated web proxy) component.
+[SHOW]
 
-When Jenkins starts up, show the Jenkins Console and discuss how customers can use the console or the Jenkins API to setup and manage build/test pipelines and how they can be deployed via Marathon or Kubernetes.
+Click on the Catalog menu link and then click on the Jenkins package. Click on the dropdown list of versions for Jenkins and then click on the Review and Run button.
 
-Demonstrate the Spark dispatcher service. Show the Spark console and discuss how multiple Spark environments (with different versions) can be launced for different teams and how DC/OS access control lists can be used to keep the teams separate.  You can run a sample Spark job buy using the 'dcos spark run' command as shown in the file:
+![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard-Jenkins.jpg?raw=true)
 
-    examples/spark-examples.txt
+[SAY]
 
-### C. Demonstrate starting multiple Kubernets Clusters
+Lets see a couple of examples of running Catalog packages. 
+
+First, I am selecting the Jenkins package, which many of our customers use to support their CI/DC pipelines. As you can see, I have the option of selecting from many different versions of Jenkins, but I will use the latest. 
+
+After I click on the Review and Run button, I am able to specify many different options for configuring Jenkins. If I am going to run one Jenkins service for multiple dev teams, I may keep it generic, but I do have the option of creating multiple Jenkins instances, one for each dev team and to do that I can specify a service group name like this: "/webapps/jenkins". Later, I can add access controls on users and groups that can be granted access to this webapps group. I can also specify storage options, including using persistent storage volumes. And while this main Jenkins task will run on a server, it can spawn many build threads that can run on all the servers in the cluster, which allows it to scale better than a static build server would allow.
+
+Lets go ahead and click the Review and Run button to start this Jenkins service.  You can see that DC/OS is allocating CPU and Memory to the service and starting it on one of the worker nodes.
+
+[SHOW]
+
+Click on the Catalog menu link and then click on the Cassandra package. Click on the Review and Run button.
+
+![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard-Cassandra.jpg?raw=true)
+
+[SAY]
+
+Going back to the Catalog, lets run a Cassandra ring. Cassandra is a very scaleable data store that is designed around a peer-to-peer model instead of a master/worker node model. Cassandra replicates its data across multiple nodes, proving high availability and better performance.
+
+With Cassandra, I can specify a service group, just like I did with the Jenkins service, so I will enter /webapps/cassandra as the service name. As I scroll down, you can see that I have the option to select the cloud vendor's region for placement of this Cassandra service. I may opt to run one Cassandra service in two different regions, to provide disaster recovery capabilities. Also, when I click on Nodes, I have the option of specifying the number of availability zones to run my Cassandra nodes accross. I will select 3 zones, so that if one zone were to become unavailable, I know my Cassandra data would still be replicated on the other two zones.
+
+I am going to click on the Review and Run button to deply this Cassandra service. Like with other services I start, DC/OS first deploys the application aware scheduler that then launches the proper tasks needed to make up a healthy Cassandra ring. Waiting a few seconds will show the first Cassandra node being started, later, the second and third will start.
+
+One final comment I want to add before we move on... All the actions I am showing you using the web based console can also be performed using the DC/OS command line interface and the DC/OS REST API. So for your power-users that would rather script these processes, they will be able to do that using shell scripts, ansible scripts and the like.
+
+
+### F. Starting multiple Kubernets Clusters
 
 Discuss how Enterprise DC/OS combined with the Mesosphere Kubernetes Engine or MKE supports "high density" kubernetes clusters that enable launching different versions of Kubernetes clusters to support different development teams. And how DC/OS uses an un-forked version of the opensource version of Kubernetes and the kubectl package. And how DC/OS allows kubernetes control plan components and worker node components to be spread across cloud availability zones for HA reasons. 
 
