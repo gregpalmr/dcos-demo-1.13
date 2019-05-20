@@ -27,8 +27,8 @@ module "dcos" {
   ssh_public_key_file          = "~/.ssh/id_rsa-terraform.pub"
   admin_ips                    = ["0.0.0.0/0"]
   num_masters                  = "1"
-  num_private_agents           = "10"
-  num_public_agents            = "2"
+  num_private_agents           = "11"
+  num_public_agents            = "1"
   bootstrap_instance_type      = "t2.medium"
   public_agents_instance_type  = "t3.xlarge"
   private_agents_instance_type = "t3.2xlarge"
@@ -72,7 +72,7 @@ module "dcos" {
   #    - "169.254.169.253"
   #  EOF
 
-  public_agents_additional_ports = ["6000", "6001", "6002", "6003", "6445", "6444", "6443", "7443", "8080", "8085", "10001", "10002", "10080", "11080", "12080", "13080", "14080", "3000", "9090", "9093", "9091", "9092","6090", "30001", "30443", "30080"]
+  public_agents_additional_ports = ["6000", "6001", "6002", "6003", "6445", "6444", "6443", "7443", "8080", "8085", "10001", "10002", "10003", "10004", "10005", "10006", "10080", "10108", "11080", "12080", "13080", "14080", "3000", "9090", "9093", "9091", "9092","6090", "30001", "30443", "30080"]
 }
 
 output "masters-ips" {
