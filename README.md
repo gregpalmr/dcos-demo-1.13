@@ -381,7 +381,7 @@ Use the DC/OS Dashboard Catalog panel to start a 5th Kubernetes cluster. Specify
 
 Talk about how MKE can implement Kubernetes RBAC with the click of a checkbox and how it can enable HA too (in fact k8s-c1 cluster is deployed in HA mode).
 
-### E. Demonstrate kubctl commands
+### G. Demonstrate kubctl commands
 
 The prep-cluser.sh script called the setup-kubectl.sh script which setup the kubectl command pointing to the k8s-c1 cluster. Additionally the start-sockshop-pods.sh script was called to load the sockshop microservices example application running with nodeport functionality in Kubernetes pods. Point your web browser to one of the DC/OS public agent nodes running and point to the Sockshop shopping cart example app:
 
@@ -409,7 +409,7 @@ If you want to demonstrate installing Helm and a Heml Chart, you can experiment 
 
     examples/helm-examples.txt
 
-### F. Upgrading a Kubernetes cluster
+### H. Upgrading a Kubernetes cluster
 
 Discuss how Enterprise DC/OS automates the process of upgrading, in a rolling fashion, the upgrading of Kubernetes clusters without disrupting the pods running on the Kubernetes cluster. Also, discuss how DC/OS has a built-in CLI command that can backup the Kubernetes cluster meta-data (from the etcd daemons) so that a Kubernetes cluster's state can be restored from a backup in the case of a failure or building a new Kubernetes cluster.
 
@@ -425,7 +425,7 @@ Use the following commands to upgrade the second Kubernetes cluster:
 
 Go to the DC/OS Dashboard and display the "Tasks" and "Plans" page for the k8s-c1 kubernetes cluster and show the progression of the upgrade. Talk about how the DC/OS MKE control plan is doing an orderly upgrade of the Kubernetes cluster by doing each master node task one at a time (etcd-0, etcd-1, etcd-2, kube-control-plane-0, kube-control-plane-1, and kube-control-plane-2). Mention how all this is done without requiring the Kubernetes cluster to experience any downtime. Also, if the customer had modified the SSL keys in the service accounts and secrets, those new keys would be installed for each restarted task as well.
 
-### G. Analytics and Machine Learning with Jupyter
+### I. Analytics and Machine Learning with Jupyter
 
 TBD
 
@@ -453,7 +453,7 @@ Then, copy and paste the following into the notebook.
 
 Then press the run icon to run the Scala program.
 
-### H. Legacy Application Support
+### J. Legacy Application Support
 
 TBD
 
@@ -479,7 +479,7 @@ Access the Marathon-LB (loadbalancer) stats console at:
 
      https://<Public Agent Node Public IP Address>:9090/haproxy?stats
 
-### I. Demonstrate the Enterprise DC/OS features
+### K. Demonstrate the Enterprise DC/OS features
 
 TBD
 
