@@ -102,18 +102,18 @@ echo
 echo " Creating SSL Cert and Service Account User for kubernetes control plane manager"
 scripts/create-k8s-permissions.sh kubernetes
 
-# Create the service account user for kubernetes cluster: k8s-1
+# Create the service account user for kubernetes cluster: k8s-c1
 echo
-echo " Creating SSL Cert and Service Account User for: k8s-1, k8s-2, k8s-3, k8s-4"
-scripts/create-k8s-permissions.sh k8s-1
-scripts/create-k8s-permissions.sh k8s-2
-scripts/create-k8s-permissions.sh k8s-3
-scripts/create-k8s-permissions.sh k8s-4
-scripts/create-k8s-permissions.sh k8s-5  # This one will not be started in advance
+echo " Creating SSL Cert and Service Account User for: k8s-c1, k8s-c2, k8s-c3, k8s-c4"
+scripts/create-k8s-permissions.sh k8s-c1
+scripts/create-k8s-permissions.sh k8s-c2
+scripts/create-k8s-permissions.sh k8s-c3
+scripts/create-k8s-permissions.sh k8s-c4
+scripts/create-k8s-permissions.sh k8s-c5  # This one will not be started in advance
 
 # Launching demo kubernetes clusters
 echo
-echo " Launching demo kubernetes clusters: k8s-1, k8s-2, k8s-3, k8s-4"
+echo " Launching demo kubernetes clusters: k8s-c1, k8s-c2, k8s-c3, k8s-c4"
 echo
 
 # First, start the kubernetes control plan manager
@@ -139,24 +139,24 @@ done
 # Then start 4 actual kubernetes clusters
 
 # Make this one an HA k8s cluster with the older k8s release (so it can be upgraded later)
-echo " Launching HA kubernetes cluster: k8s-1"
-sed 's/SVC_NAME/k8s-1/g' resources/package-kubernetes-cluster-ha.json > /tmp/k8s-options.json
+echo " Launching HA kubernetes cluster: k8s-c1"
+sed 's/SVC_NAME/k8s-c1/g' resources/package-kubernetes-cluster-ha.json > /tmp/k8s-options.json
 dcos kubernetes cluster create --options=/tmp/k8s-options.json --yes --package-version="2.2.2-1.13.5" > /dev/null 2>&1
 sleep 2
 
 # Make the rest non-HA k8s clusters with various releases
-echo " Launching kubernetes cluster: k8s-2"
-sed 's/SVC_NAME/k8s-2/g' resources/package-kubernetes-cluster.json > /tmp/k8s-options.json
+echo " Launching kubernetes cluster: k8s-c2"
+sed 's/SVC_NAME/k8s-c2/g' resources/package-kubernetes-cluster.json > /tmp/k8s-options.json
 dcos kubernetes cluster create --options=/tmp/k8s-options.json --yes > /dev/null 2>&1
 sleep 2
 
-echo " Launching kubernetes cluster: k8s-3"eval $(maws login 110465657741_Mesosphere-PowerUser)
-sed 's/SVC_NAME/k8s-3/g' resources/package-kubernetes-cluster.json > /tmp/k8s-options.json
+echo " Launching kubernetes cluster: k8s-c3"
+sed 's/SVC_NAME/k8s-c3/g' resources/package-kubernetes-cluster.json > /tmp/k8s-options.json
 dcos kubernetes cluster create --options=/tmp/k8s-options.json --yes --package-version="2.1.1-1.12.5" > /dev/null 2>&1
 sleep 2
 
-echo " Launching kubernetes cluster: k8s-4"
-sed 's/SVC_NAME/k8s-4/g' resources/package-kubernetes-cluster.json > /tmp/k8s-options.json
+echo " Launching kubernetes cluster: k8s-c4"
+sed 's/SVC_NAME/k8s-c4/g' resources/package-kubernetes-cluster.json > /tmp/k8s-options.json
 dcos kubernetes cluster create --options=/tmp/k8s-options.json --yes --package-version="2.2.2-1.13.5" > /dev/null 2>&1
 sleep 2
 
@@ -164,6 +164,9 @@ rm -f /tmp/k8s-options.json
 
 # Start the proxies for the api servers
 scripts/start-proxies.sh
+
+echo " Launching Marathon-LB load balancer"
+dcos package install --yes --options=resources/marathon-lb-options.json marathon-lb
 
 echo " Launching Kafka package"
 dcos package install --yes kafka > /dev/null 2>&1

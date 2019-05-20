@@ -44,15 +44,15 @@ echo
 echo " Installing the DC/OS CLI Kubernetes subcommand"
 dcos package install --cli kubernetes --yes  > /dev/null 2>&1
 
-# Wait for the k8s-1 cluster deploy to complete
+# Wait for the k8s-c1 cluster deploy to complete
 echo
-echo " Waiting for MKE cluster named k8s-1 to deploy completely using the command:"
+echo " Waiting for MKE cluster named k8s-c1 to deploy completely using the command:"
 echo
-echo "    $ dcos kubernetes manager plan status deploy --name=k8s-1 | grep -v COMPLETE"
+echo "    $ dcos kubernetes manager plan status deploy --name=k8s-c1 | grep -v COMPLETE"
 echo
 while true
 do
-    plan_complete=$(dcos kubernetes manager plan status deploy --name=k8s-1 | grep -v COMPLETE)
+    plan_complete=$(dcos kubernetes manager plan status deploy --name=k8s-c1 | grep -v COMPLETE)
     if [ "$plan_complete" != "" ]
     then
         echo -n "."
@@ -67,7 +67,7 @@ echo
 echo " Waiting for Kubernetes API Server proxies to start"
 while true
 do
-    dcos task k8s-api-proxies_k8s-1 > /dev/null 2>&1
+    dcos task k8s-api-proxies_k8s-c1 > /dev/null 2>&1
     if [ "$?" != 0 ]
     then
         echo -n "."
@@ -81,9 +81,9 @@ echo " Getting IP Addresses of the DC/OS agents running the HAProxy services "
 echo "     NOTE: You must run ssh-add to add your DC/OS cluster's SSH key to your cache for this to work"
 echo
 
-HAPROXY1_PUB_IP=$(priv_ip=$(dcos task k8s-api-proxies_k8s-1 | grep -v HOST | awk '{print $2}') && dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --master-proxy --private-ip=$priv_ip --user=centos "curl http://169.254.169.254/latest/meta-data/public-ipv4");
+HAPROXY1_PUB_IP=$(priv_ip=$(dcos task k8s-api-proxies_k8s-c1 | grep -v HOST | awk '{print $2}') && dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --master-proxy --private-ip=$priv_ip --user=centos "curl http://169.254.169.254/latest/meta-data/public-ipv4");
 
-HAPROXY2_PUB_IP=$(priv_ip=$(dcos task k8s-api-proxies_k8s-2 | grep -v HOST | awk '{print $2}') && dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --master-proxy --private-ip=$priv_ip --user=centos "curl http://169.254.169.254/latest/meta-data/public-ipv4"); 
+HAPROXY2_PUB_IP=$(priv_ip=$(dcos task k8s-api-proxies_k8s-c2 | grep -v HOST | awk '{print $2}') && dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --master-proxy --private-ip=$priv_ip --user=centos "curl http://169.254.169.254/latest/meta-data/public-ipv4"); 
 
 echo
 echo " Kubernetes API Server Proxy 1: $HAPROXY1_PUB_IP  - http://${HAPROXY1_PUB_IP}:9091/haproxy?stats "
@@ -100,14 +100,14 @@ mv ~/.kube ~/.kube.backup > /dev/null 2>&1
 
 dcos kubernetes cluster kubeconfig \
     --insecure-skip-tls-verify \
-    --context-name=k8s-2 \
-    --cluster-name=k8s-2 \
+    --context-name=k8s-c2 \
+    --cluster-name=k8s-c2 \
     --apiserver-url=https://${HAPROXY2_PUB_IP}:6444
 
 dcos kubernetes cluster kubeconfig \
     --insecure-skip-tls-verify \
-    --context-name=k8s-1 \
-    --cluster-name=k8s-1 \
+    --context-name=k8s-c1 \
+    --cluster-name=k8s-c1 \
     --apiserver-url=https://${HAPROXY1_PUB_IP}:6443
 
 echo
@@ -132,8 +132,8 @@ echo
 echo " kubectl setup for 2 Kubernetes clusters. To switch contexts, use these commands:"
 echo
 echo " kubectl config get-contexts"
-echo " kubectl config use-context k8s-2"
-echo " kubectl config use-context k8s-1"
+echo " kubectl config use-context k8s-c2"
+echo " kubectl config use-context k8s-c1"
 echo
 
 # End of script

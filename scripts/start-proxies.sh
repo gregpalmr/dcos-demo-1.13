@@ -53,14 +53,14 @@ echo " Installing the DC/OS CLI Kubernetes subcommand"
 dcos package install --cli kubernetes --yes  > /dev/null 2>&1
 
 echo
-echo " Starting HAProxy service for the Kubernetes API server for kubernetes clusters: k8s-1 & k8s-2"
+echo " Starting HAProxy service for the Kubernetes API server for kubernetes clusters: k8s-c1 & k8s-c2"
 echo
 
-sed 's/SVC_NAME/k8s-1/g' resources/haproxy-marathon.json > /tmp/haproxy.json
+sed 's/SVC_NAME/k8s-c1/g' resources/haproxy-marathon.json > /tmp/haproxy.json
 dcos marathon app add /tmp/haproxy.json > /dev/null 2>&1
 sleep 2
 
-sed 's/SVC_NAME/k8s-2/g' resources/haproxy2-marathon.json > /tmp/haproxy.json
+sed 's/SVC_NAME/k8s-c2/g' resources/haproxy2-marathon.json > /tmp/haproxy.json
 dcos marathon app add /tmp/haproxy.json > /dev/null 2>&1
 sleep 2
 
