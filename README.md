@@ -206,7 +206,7 @@ This domonstration will illustrate some of the capabilites around cloud-native a
 
 Lets begin.
 
-#### DC/OS Dashboard Overview
+### B. DC/OS Cluster Overview
 
 [SHOW]
 
@@ -252,6 +252,8 @@ Click on the Components menu link on the left pane to show the health status of 
 
 DC/OS deploys all the ecosystem components that are used to manage the cluster and it monitors the health of these system components. This console shows the health of each component, but DC/OS can also send log messages and health status information to your favorite log management system such as Splunk, Data Dog, ELK, and others.
 
+### D. DC/OS Package Catalog
+
 [SHOW]
 
 Click on the Catalog menu link on the left pane to show the DC/OS Package Catalog.
@@ -290,9 +292,9 @@ Click on the Settings->Package Repositories menu link on the left panel to displ
 
 [SAY]
 
-By the way, while Mesosphere maintains this default package Catalog, you are not limited to installing only these software packages. Customers can add their own packages to the Catalog using the DC/OS Universe github repo tools to create new package Catalog objects.  In this way, customers can add their own package Catalog repos behind their firewall for private use.
+By the way, while Mesosphere maintains this default package Catalog, you are not limited to installing only these software packages. Customers can add their own packages to the Catalog using the DC/OS Universe github repo tools to create new Catalog packages. In this way, customers can add their own package Catalog repos behind their firewall for private use.
 
-### B. Demonstrate starting mixed workloads including:
+### E. Demonstrate starting mixed workloads including:
 
 - Jenkins
 - Kafka
