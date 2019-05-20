@@ -252,6 +252,32 @@ Click on the Components menu link on the left pane to show the health status of 
 
 DC/OS deploys all the ecosystem components that are used to manage the cluster and it monitors the health of these system components. This console shows the health of each component, but DC/OS can also send log messages and health status information to your favorite log management system such as Splunk, Data Dog, ELK, and others.
 
+### C. DC/OS Services - Bin Packing, Fine Grained Resource Sharing & Zone Awareness
+
+[SHOW]
+
+Click on the Services menu link on the left pane to show the services that are presently running on the DC/OS cluster.
+
+![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard-Services.jpg?raw=true)
+
+[SAY]
+
+Lets view some of the workloads that are already running on this DC/OS cluster. This Services page shows that there are 4 Kubernetes clusters running, one Kafka broker environment, a Spark dispatcher and a load balancer (which we will use later). 
+
+Note that we have several different versions of Kubernetes running at the same time - a 1.12.5 version, two 1.13.5 versions and a 1.14.1 version. This can be useful for application development teams that may have different requirements based on the libraries they are using and the version of Kubernetes that their team is testing at. This same capabililty is available for other services too, like Kafka, Cassandra, Spark and more. And DC/OS makes it easy to upgrade these older versions of the packages, which we will demonstrate in a few minutes.
+
+[SHOW]
+
+Click on the Nodes menu link on the left pane to show the DC/OS agents running workloads. Click on the "circle" icon in the upper right corner to display the node CPU allocation page. Then click on one of the servers that is about 90% allocated.
+
+![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard-Services-On-Nodes.jpg?raw=true)
+
+[SAY]
+
+I want to mention here, that we didn't have to stage and configure seperate servers or cloud instances for each Kubernetes cluster, Kafka broker or Spark environment. Instead, we let DC/OS use its bin packing capabilities to share the resources on the worker nodes in a fine grained manner.  When I click on one of these servers, you can see there are tasks from different services running on the same server. Here are tasks from two different Kubernetes clusters (we call that high density Kubernetes) and a Spark dispatcher task.
+
+This is very different than the way cloud vendors allocate resources. If I was running Elastic Map Reduce or EMR on an AWS environment and then wanted to desploy an Elastic Kubernetes Service, AWS would not check to see if I had any CPU, Memory and Disk available on my EMR cluster and then use it for the EKS cluster. It would simply spin up more cloud instances to run EKS and charge me more for it, even though I may have had resources available on my existing cloud instances. It is obvious that with bin packing, DC/OS can same me a ton of money by running more things on fewer cloud instances than the cloud vendors would ever allow. And this same concept works on-prem too. 
+
 ### D. DC/OS Package Catalog
 
 [SHOW]
