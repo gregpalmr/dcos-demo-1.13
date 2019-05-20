@@ -1,0 +1,9 @@
+  {
+    "marathon-lb": {
+      "name": "loadbalancer",
+      "haproxy-group": "external",
+      "cpus": 1,
+      "bind-http-https": false,
+       "role": "slave_public"
+    }
+  }
