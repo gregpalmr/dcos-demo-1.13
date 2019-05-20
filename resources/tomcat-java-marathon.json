@@ -1,0 +1,62 @@
+{
+  "id": "/webapps/javaapp1",
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "cmd": "mv /mnt/mesos/sandbox/sample.war /usr/local/tomcat/webapps/ && /usr/local/tomcat/bin/catalina.sh run\n",
+  "container": {
+    "portMappings": [
+      {
+        "containerPort": 8080,
+        "hostPort": 0,
+        "labels": {
+          "VIP_0": "/webapps/javaapp1:8080"
+        },
+        "protocol": "tcp",
+        "servicePort": 10005,
+        "name": "tomcat-port"
+      }
+    ],
+    "type": "MESOS",
+    "volumes": [],
+    "docker": {
+      "image": "tomcat",
+      "forcePullImage": false,
+      "parameters": []
+    }
+  },
+  "cpus": 1,
+  "disk": 0,
+  "fetch": [
+    {
+      "uri": "https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war",
+      "extract": true,
+      "executable": false,
+      "cache": false
+    }
+  ],
+  "instances": 1,
+  "maxLaunchDelaySeconds": 300,
+  "mem": 512,
+  "gpus": 0,
+  "networks": [
+    {
+      "name": "dev",
+      "mode": "container"
+    }
+  ],
+  "requirePorts": false,
+  "upgradeStrategy": {
+    "maximumOverCapacity": 1,
+    "minimumHealthCapacity": 1
+  },
+  "killSelection": "YOUNGEST_FIRST",
+  "unreachableStrategy": {
+    "inactiveAfterSeconds": 0,
+    "expungeAfterSeconds": 0
+  },
+  "healthChecks": [],
+  "constraints": [],
+  "labels": {
+    "HAPROXY_GROUP": "external"
+  }
+}
