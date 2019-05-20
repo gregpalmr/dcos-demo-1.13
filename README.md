@@ -188,15 +188,15 @@ Hello and welcome to Mesosphere's DC/OS demonstration.  DC/OS, or the Data Cente
 
 With DC/OS you can run cloud native applications at scale using the opensource Kubernetes engine. 
 
-You can run highly distributed GPU enabled data science applications in production and not just on a data scientists' laptop, while incorporating machine learning and data science environments such as Spark, BeakerX, Dask, Tensorflow, PyTorch and others. 
+You can run highly distributed GPU enabled data science applications in production and not just on data scientists' laptops, while incorporating machine learning and data science environments such as Spark, BeakerX, Dask, Tensorflow, PyTorch and others. 
 
 DC/OS can also run legacy applications including C, C++, Ruby-on-rails, Python and Java applications and run them along side your new generation of cloud native applications. 
 
-DC/OS can also expose an enterprise catalog of pre-built software packages that promotes a self-service oriented deployment environment for developers and application administrators while enforcing central IT controls. 
+DC/OS exposes an enterprise catalog of pre-built software packages that promotes a self-service oriented deployment environment for developers and application administrators while enforcing central IT controls. 
 
-DC/OS provides data services automation through a facility we call application-aware scheduling. If you want to run data services such as Elasticsearch, MongoDB, Cassandra, Kafka, HDFS and others, Mesosphere's application-aware schedulers will correctly run all the tasks that make up a horizontally scaled, highly available data service across data center racks, or cloud-vendor availability zones in a highly orchestrated fashion. DC/OS even supports on-cluster and off-cluster persistant storage volumes for use by the data services .
+Data services automation is achieved through a facility we call application-aware scheduling. If you want to run data services such as Elasticsearch, MongoDB, Cassandra, Kafka, HDFS and others, Mesosphere's application-aware schedulers can launch all the tasks that make up a horizontally scaled, highly available data service across data center racks, or cloud-vendor availability zones in a highly orchestrated fashion. DC/OS even supports on-cluster and off-cluster persistant storage volumes for use by data services.
 
-DC/OS also provides a unified multi-cloud operational environment so if you've been spending months deploying and running dozens or hundreds of applications in one cloud vendor environment and you want to switch over to a second cloud vendor or run on multiple cloud vendors simultaneously, DC/OS allows you to do that without having to re-tool and through away all the automated processes that you used in the first environment.  In addition to public cloud environments, DC/OS can also run your workloads in your data center without the need for OpenStack, VMWare or other hypervisor technology. 
+By providing a unified multi-cloud operational environment, DC/OS helps you avoid cloud vendor lock-in. So, if you've been spending months deploying and running dozens or hundreds of applications in one cloud vendor environment and you want to switch over to a second cloud vendor or run on multiple cloud vendors simultaneously, DC/OS allows you to do that without having to re-tool and through away all the automated processes that you used in the initial cloud environment.  In addition to public cloud environments, DC/OS can also run your workloads in your data center without the need for OpenStack, VMWare or other hypervisor technology. 
 
 DC/OS encorporates enterprise security and multi-tenancy features so that you can have multiple teams sharing the same deployment environment as they run their required technology stacks and purpose-built applications - sharing resources such as CPU, Memory and Disk but keeping applications isolated.
 
