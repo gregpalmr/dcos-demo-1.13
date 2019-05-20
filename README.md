@@ -216,7 +216,9 @@ Show the main DC/OS Dashboard Login page.
 
 [SAY]
 
-Before I can access any of the DC/OS Dashboard pages, I must sign in. DC/OS supports integration with your LDAP or Active Directory environments as well as with single-signon technologies like SAML 2.0 and OAuth 2.0 via OpenID Connect. Here I will login with a local user called admin1.
+Before I can access any of the DC/OS Dashboard pages, I must sign in. DC/OS supports integration with LDAP and Active Directory environments as well as with single-signon technologies like SAML 2.0 and OAuth 2.0 via OpenID Connect. 
+
+Here I will login with a local user called admin1.
 
 [SHOW]
 
@@ -226,23 +228,28 @@ Show the main DC/OS Dashboard page.
 
 [SAY]
 
-On this main dashboard page, you can see that DC/OS is tracking the availability of pooled resources including CPUs, GPUs, Memory and Disk.  DC/OS can allocates them dynamically to services that are launched from the Catalog or the Services panel.
+On this main dashboard page, you can see that DC/OS is tracking the availability of pooled resources including CPUs, GPUs, Memory and Disk.  DC/OS can allocate resources dynamically to services that are launched from the Catalog or the Services panel.
 
 [SHOW]
 
-Click on the Nodes menu link on the left pane and shoe the Nodes list.
+Click on the Nodes menu link on the left pane to show the Nodes list.
 
 ![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard-Nodes.jpg?raw=true)
 
 [SAY]
 
-In the Nodes page, you can see the servers or cloud instances that are being managed by DC/OS. Notice that DC/OS is region and zone aware? It shows that I have some cloud instances in availability zones 1a, 1b and 1c. If I was managing on-prem servers, these could be physical racks instead of availability zones. DC/OS can launch workloads with "placement constraints" to spread tasks across these fault zones like racks, data centers or cloud vendor availability zones. Notic also that DC/OS is monitoring the health of these worker nodes so that if one of them goes offline, any workloads that were running on the bad server, can be re-launched on the remaining healthy servers. As you may know this happens often in AWS, Azure and other cloud environments where cloud instances can be rebooted without notice.
+On the Nodes page, you can see the servers or cloud instances that are being managed by DC/OS. Notice that DC/OS is region and zone aware? It shows that I have some cloud instances in availability zones 1a, 1b and 1c. If I was managing on-prem servers, these could be physical racks instead of availability zones. DC/OS can launch workloads with "placement constraints" to spread tasks across these fault zones like racks, data centers or cloud vendor availability zones. 
+
+Note that DC/OS is monitoring the health of these worker nodes so that if one of them goes offline, any workloads that were running on the failed server can be re-launched on the remaining healthy servers. As you may know this happens often in AWS, Azure and other cloud environments where cloud instances can be rebooted without notice.
 
 [SHOW]
-Show the Components panel and show how all the ecosystem components that are used to manage the cluster and how DC/OS automates the health of those low level components.
+
+Show the Components panel.
+
+![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard-Components.jpg?raw=true)
 
 [SAY]
-xxx
+and show how all the ecosystem components that are used to manage the cluster and how DC/OS automates the health of those low level components.
 
 [SHOW]
 
