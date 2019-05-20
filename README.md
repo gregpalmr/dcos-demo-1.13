@@ -154,13 +154,13 @@ To support launching Kubernetes clusters with DC/OS service accounts and SSL cer
 
 This script will do the following:
 
-- Create DC/OS service account users for k8s-1 through k8s-5 along with thier DC/OS permissions.
+- Create DC/OS service account users for k8s-c1 through k8s-5 along with thier DC/OS permissions.
 - Create DC/OS secrets with SSL certificates for the above users to be used for enabling TLS.
 - Launch the MKE Kubernetes control plane manager (catalog package: Kubernetes).
 - Launch four example MKE Kubernetes Clusters (catalog package: Kubernetes Cluster). These clusters will have varying Kubernetes version numbers and will be spread across three availability zones to demonstration high density kubernetes and zone awareness.
-- Call the scripts/start-proxies.sh script to launch two HAProxy services to proxy the Kubernetes API Server objects for two of the MKE Kubernetes clusters (k8s-1 and k8s-2).
-- Call the scripts/setup-kubectl.sh script to setup the Kubernetes cli (kubectl) for two of the MKE Kubernetes clusters (k8s-1 and k8s2) and launch a Chrome browser session for the Kubernetes Dashboard for the k8s-1 cluster.
-- Call the scripts/start-sockshop-pods.sh script to start the Sock Shop microservices demo into pods in the k8s-1 cluster and to launch a Chrome browser session for the Sock Shop shopping cart web page.
+- Call the scripts/start-proxies.sh script to launch two HAProxy services to proxy the Kubernetes API Server objects for two of the MKE Kubernetes clusters (k8s-c1 and k8s-c2).
+- Call the scripts/setup-kubectl.sh script to setup the Kubernetes cli (kubectl) for two of the MKE Kubernetes clusters (k8s-c1 and k8s-c2) and launch a Chrome browser session for the Kubernetes Dashboard for the k8s-c1 cluster.
+- Call the scripts/start-sockshop-pods.sh script to start the Sock Shop microservices demo into pods in the k8s-c1 cluster and to launch a Chrome browser session for the Sock Shop shopping cart web page.
 
 ### F. Get the public IP addresses of the DC/OS public agent nodes. 
 
@@ -176,23 +176,85 @@ NOTE: This is done for you at the end of the prep-cluster.sh script, so you can 
 
 Before starting the demo, discuss with the audience what you are going to demonstrate in the next few minutes.
 
+[SHOW]
+
 Show this presentation slide to aid in the overvew discussion.
 
 ![DC/OS Overview](/resources/images/Mesosphere-DCOS-Overview.jpg?raw=true)
 
-Show the main DC/OS Dashboard and talk about how DC/OS pools resources (CPU, GPU, Memory and Disk) and allocates them dynamically to services that are launched from the Catalog or the Services panel.
+[SAY]
 
-Show the Nodes panel and show the servers that are being managed by DC/OS. Discuss how DC/OS is region and zone aware (or rack aware when on-prem) and how workloads can be launched with "placement constraints" to spread them across fault zones.
+Hello and welcome to Mesosphere's DC/OS demonstration.  DC/OS, or the Data Center Operating System, is Mesosphere's multi-cloud automation platform. 
 
+With DC/OS you can run cloud native applications at scale using the opensource Kubernetes engine. 
+
+You can run highly distributed GPU enabled data science applications in production and not just on a data scientists' laptop, while incorporating machine learning and data science environments such as Spark, BeakerX, Dask, Tensorflow, PyTorch and others. 
+
+DC/OS can also run legacy applications including C, C++, Ruby-on-rails, Python and Java applications and run them along side your new generation of cloud native applications. 
+
+DC/OS can also expose an enterprise catalog of pre-built software packages that promotes a self-service oriented deployment environment for developers and application administrators while enforcing central IT controls. 
+
+DC/OS provides data services automation through a facility we call application-aware scheduling. If you want to run data services such as Elasticsearch, MongoDB, Cassandra, Kafka, HDFS and others, Mesosphere's application-aware schedulers will correctly run all the tasks that make up a horizontally scaled, highly available data service across data center racks, or cloud-vendor availability zones in a highly orchestrated fashion. DC/OS even supports on-cluster and off-cluster persistant storage volumes for use by the data services .
+
+DC/OS also provides a unified multi-cloud operational environment so if you've been spending months deploying and running dozens or hundreds of applications in one cloud vendor environment and you want to switch over to a second cloud vendor or run on multiple cloud vendors simultaneously, DC/OS allows you to do that without having to re-tool and through away all the automated processes that you used in the first environment.  In addition to public cloud environments, DC/OS can also run your workloads in your data center without the need for OpenStack, VMWare or other hypervisor technology. 
+
+DC/OS encorporates enterprise security and multi-tenancy features so that you can have multiple teams sharing the same deployment environment as they run their required technology stacks and purpose-built applications - sharing resources such as CPU, Memory and Disk but keeping applications isolated.
+
+DC/OS supports edge computing for IOT applications such as smart cities, connected cars, manufacturing, and other applications that require running some processes outside of the main data center, but DC/OS also supports running applications in on-prem computing resources as well as on public cloud vendor resources including Amazon AWS, Microsoft Azure, and Google Cloud Platform.
+
+This domonstration will illustrate some of the capabilites around cloud-native application deployments, data science applications, legacy application deployments and the enterprise catalog, that launches software package using an application-aware scheduler facility. 
+
+Lets begin.
+
+#### DC/OS Dashboard Overview
+
+[SHOW]
+
+Show the main DC/OS Dashboard Login page. 
+
+![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard-Login.jpg?raw=true)
+
+[SAY]
+
+Before I can access any of the DC/OS Dashboard pages, I must sign in. DC/OS supports integration with your LDAP or Active Directory environments as well as with single-signon technologies like SAML 2.0 and OAuth 2.0 via OpenID Connect. Here I will login with a local user called admin1.
+
+[SHOW]
+
+Show the main DC/OS Dashboard page.
+
+![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard.jpg?raw=true)
+
+[SAY]
+
+On this main dashboard page, you can see that DC/OS is tracking the availability of pooled resources including CPUs, GPUs, Memory and Disk.  DC/OS can allocates them dynamically to services that are launched from the Catalog or the Services panel.
+
+[SHOW]
+
+Click on the Nodes menu link on the left pane and shoe the Nodes list.
+
+![DC/OS Overview](/resources/images/Mesosphere-DCOS-Dashboard-Nodes.jpg?raw=true)
+
+[SAY]
+
+In the Nodes page, you can see the servers or cloud instances that are being managed by DC/OS. Notice that DC/OS is region and zone aware? It shows that I have some cloud instances in availability zones 1a, 1b and 1c. If I was managing on-prem servers, these could be physical racks instead of availability zones. DC/OS can launch workloads with "placement constraints" to spread tasks across these fault zones like racks, data centers or cloud vendor availability zones. Notic also that DC/OS is monitoring the health of these worker nodes so that if one of them goes offline, any workloads that were running on the bad server, can be re-launched on the remaining healthy servers. As you may know this happens often in AWS, Azure and other cloud environments where cloud instances can be rebooted without notice.
+
+[SHOW]
 Show the Components panel and show how all the ecosystem components that are used to manage the cluster and how DC/OS automates the health of those low level components.
 
+[SAY]
+xxx
+
+[SHOW]
+
 Show the Catalog panel and show how pre-packages applications and services can be launched easily from the package catalog and how customers can add their own packages using the DC/OS Universe github repo tools (see https://github.com/mesosphere/universe). Show the Settings->Package Reposities panel and discus how customers can add their own repos behind their firewall for private use.
+
+[SAY]
+xxx
 
 ### B. Demonstrate starting mixed workloads including:
 
 - Jenkins
 - Kafka
-- Spark
 - Cassandra
 
 The prep-cluster.sh script starts an example Spark distpatcher and Kafka service, but at this time use the Catalog to start a Jenksins service. Talk about how the Jenkins service can take advantage of DC/OS's support for persistant storage volumes and how the Jenkins console can be access via the DC/OS Admin Router (authenticated web proxy) component.
@@ -221,7 +283,7 @@ Use the DC/OS Dashboard Catalog panel to start a 5th Kubernetes cluster. Specify
         Private Node Count: 1
         Public Node Count: 0
 
-Talk about how MKE can implement Kubernetes RBAC with the click of a checkbox and how it can enable HA too (in fact k8s-1 cluster is deployed in HA mode).
+Talk about how MKE can implement Kubernetes RBAC with the click of a checkbox and how it can enable HA too (in fact k8s-c1 cluster is deployed in HA mode).
 
 ### D. Demonstrate the Enterprise DC/OS features
 
@@ -232,27 +294,27 @@ While the new Kubernets clusters is launching, use the DC/OS Dashboard to show h
 - Supports encrypted secrets
 - Provides multi-tenancy at the administrator level by enforcing access control list permissions
 
-Create two user groups (mobile-apps and enterprise-apps), then create a user and add it to the mobile-apps group.
+Create two user groups (webapps, and mobileapps), then create a user and add it to the mobileapps group.
 
-Add ACL rules to the mobile-apps group by copying the contents of:
+Add ACL rules to the mobileapps group by copying the contents of:
 
     examples/acl-examples.txt
 
-into the Permissions panel for the mobile-apps group.
+into the Permissions panel for the webapps group.
 
 Then log off as the super user and log in as the user you created. Show how many of the left side menu options are missing and try to start a MySQL package in the application group:
 
-    /enterprise-apps/mysql
+    /mobileapps/mysql
 
 Show how DC/OS does not allow the user to start MySQL into that application group. Then change it to the group:
 
-    /mobile-apps/mysql
+    /webapps/mysql
 
 And show how DC/OS allows that and by looking at the Services panel, how the MySQL package is "deploying".
 
 ### E. Demonstrate kubctl commands
 
-The prep-cluser.sh script called the setup-kubectl.sh script which setup the kubectl command pointing to the k8s-1 cluster. Additionally the start-sockshop-pods.sh script was called to load the sockshop microservices example application running with nodeport functionality in Kubernetes pods. Point your web browser to one of the DC/OS public agent nodes running and point to the Sockshop shopping cart example app:
+The prep-cluser.sh script called the setup-kubectl.sh script which setup the kubectl command pointing to the k8s-c1 cluster. Additionally the start-sockshop-pods.sh script was called to load the sockshop microservices example application running with nodeport functionality in Kubernetes pods. Point your web browser to one of the DC/OS public agent nodes running and point to the Sockshop shopping cart example app:
 
     http://<public agent public ip address>:30001
 
@@ -290,9 +352,9 @@ Use the following commands to upgrade the second Kubernetes cluster:
 
     $ dcos package install kubernetes --cli --package-version=2.3.0-1.14.1 --yes
 
-    $ dcos kubernetes cluster update  --cluster-name=k8s-1 --package-version=2.3.0-1.14.1 --yes
+    $ dcos kubernetes cluster update  --cluster-name=k8s-c1 --package-version=2.3.0-1.14.1 --yes
 
-Go to the DC/OS Dashboard and display the "Tasks" and "Plans" page for the k8s-1 kubernetes cluster and show the progression of the upgrade. Talk about how the DC/OS MKE control plan is doing an orderly upgrade of the Kubernetes cluster by doing each master node task one at a time (etcd-0, etcd-1, etcd-2, kube-control-plane-0, kube-control-plane-1, and kube-control-plane-2). Mention how all this is done without requiring the Kubernetes cluster to experience any downtime. Also, if the customer had modified the SSL keys in the service accounts and secrets, those new keys would be installed for each restarted task as well.
+Go to the DC/OS Dashboard and display the "Tasks" and "Plans" page for the k8s-c1 kubernetes cluster and show the progression of the upgrade. Talk about how the DC/OS MKE control plan is doing an orderly upgrade of the Kubernetes cluster by doing each master node task one at a time (etcd-0, etcd-1, etcd-2, kube-control-plane-0, kube-control-plane-1, and kube-control-plane-2). Mention how all this is done without requiring the Kubernetes cluster to experience any downtime. Also, if the customer had modified the SSL keys in the service accounts and secrets, those new keys would be installed for each restarted task as well.
 
 ## 3. Summarize what you demonstrated
 
