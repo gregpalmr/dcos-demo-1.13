@@ -336,7 +336,7 @@ Click on the Catalog menu link and then click on the Jenkins package. Click on t
 
 Lets see a couple of examples of running Catalog packages. 
 
-First, I am selecting the Jenkins package, which many of our customers use to support their CI/DC pipelines. As you can see, I have the option of selecting from many different versions of Jenkins, but I will use the latest. 
+First, I am selecting the Jenkins package, which many of our customers use to support their CI/CD pipelines. As you can see, I have the option of selecting from serveral versions of Jenkins, but I will use the latest. 
 
 After I click on the Review and Run button, I am able to specify many different options for configuring Jenkins. If I am going to run one Jenkins service for multiple dev teams, I may keep it generic, but I do have the option of creating multiple Jenkins instances, one for each dev team and to do that I can specify a service group name like this: "/webapps/jenkins". Later, I can add access controls on users and groups that can be granted access to this webapps group. I can also specify storage options, including using persistent storage volumes. And while this main Jenkins task will run on a server, it can spawn many build threads that can run on all the servers in the cluster, which allows it to scale better than a static build server would allow.
 
@@ -350,7 +350,7 @@ Click on the Catalog menu link and then click on the Cassandra package. Click on
 
 [SAY]
 
-Going back to the Catalog, lets run a Cassandra ring. Cassandra is a very scaleable data store that is designed around a peer-to-peer model instead of a master/worker node model. Cassandra replicates its data across multiple nodes, proving high availability and better performance.
+Going back to the Catalog, lets run a Cassandra ring. Cassandra is a very scaleable data store that is designed around a peer-to-peer model instead of a master/worker node model. Cassandra replicates its data across multiple nodes, providing high availability and better performance.
 
 With Cassandra, I can specify a service group, just like I did with the Jenkins service, so I will enter /webapps/cassandra as the service name. As I scroll down, you can see that I have the option to select the cloud vendor's region for placement of this Cassandra service. I may opt to run one Cassandra service in two different regions, to provide disaster recovery capabilities. Also, when I click on Nodes, I have the option of specifying the number of availability zones to run my Cassandra nodes accross. I will select 3 zones, so that if one zone were to become unavailable, I know my Cassandra data would still be replicated on the other two zones.
 
@@ -359,7 +359,9 @@ I am going to click on the Review and Run button to deply this Cassandra service
 One final comment I want to add before we move on... All the actions I am showing you using the web based console can also be performed using the DC/OS command line interface and the DC/OS REST API. So for your power-users that would rather script these processes, they will be able to do that using shell scripts, ansible scripts and the like.
 
 
-### F. Starting multiple Kubernets Clusters
+### F. Supporting Cloud Native Applications with  Multiple Kubernets Clusters
+
+TBD
 
 Discuss how Enterprise DC/OS combined with the Mesosphere Kubernetes Engine or MKE supports "high density" kubernetes clusters that enable launching different versions of Kubernetes clusters to support different development teams. And how DC/OS uses an un-forked version of the opensource version of Kubernetes and the kubectl package. And how DC/OS allows kubernetes control plan components and worker node components to be spread across cloud availability zones for HA reasons. 
 
@@ -378,33 +380,6 @@ Use the DC/OS Dashboard Catalog panel to start a 5th Kubernetes cluster. Specify
         Public Node Count: 0
 
 Talk about how MKE can implement Kubernetes RBAC with the click of a checkbox and how it can enable HA too (in fact k8s-c1 cluster is deployed in HA mode).
-
-### D. Demonstrate the Enterprise DC/OS features
-
-While the new Kubernets clusters is launching, use the DC/OS Dashboard to show how DC/OS:
-
-- Integrates with LDAP/AD servers
-- Integrates with SAML 2.0 and OAuth2 authention servers
-- Supports encrypted secrets
-- Provides multi-tenancy at the administrator level by enforcing access control list permissions
-
-Create two user groups (webapps, and mobileapps), then create a user and add it to the mobileapps group.
-
-Add ACL rules to the mobileapps group by copying the contents of:
-
-    examples/acl-examples.txt
-
-into the Permissions panel for the webapps group.
-
-Then log off as the super user and log in as the user you created. Show how many of the left side menu options are missing and try to start a MySQL package in the application group:
-
-    /mobileapps/mysql
-
-Show how DC/OS does not allow the user to start MySQL into that application group. Then change it to the group:
-
-    /webapps/mysql
-
-And show how DC/OS allows that and by looking at the Services panel, how the MySQL package is "deploying".
 
 ### E. Demonstrate kubctl commands
 
@@ -434,7 +409,7 @@ If you want to demonstrate installing Helm and a Heml Chart, you can experiment 
 
     examples/helm-examples.txt
 
-### F. Demonstrate upgrading a Kubernetes cluster
+### F. Upgrading a Kubernetes cluster
 
 Discuss how Enterprise DC/OS automates the process of upgrading, in a rolling fashion, the upgrading of Kubernetes clusters without disrupting the pods running on the Kubernetes cluster. Also, discuss how DC/OS has a built-in CLI command that can backup the Kubernetes cluster meta-data (from the etcd daemons) so that a Kubernetes cluster's state can be restored from a backup in the case of a failure or building a new Kubernetes cluster.
 
@@ -449,6 +424,90 @@ Use the following commands to upgrade the second Kubernetes cluster:
     $ dcos kubernetes cluster update  --cluster-name=k8s-c1 --package-version=2.3.0-1.14.1 --yes
 
 Go to the DC/OS Dashboard and display the "Tasks" and "Plans" page for the k8s-c1 kubernetes cluster and show the progression of the upgrade. Talk about how the DC/OS MKE control plan is doing an orderly upgrade of the Kubernetes cluster by doing each master node task one at a time (etcd-0, etcd-1, etcd-2, kube-control-plane-0, kube-control-plane-1, and kube-control-plane-2). Mention how all this is done without requiring the Kubernetes cluster to experience any downtime. Also, if the customer had modified the SSL keys in the service accounts and secrets, those new keys would be installed for each restarted task as well.
+
+### G. Analytics and Machine Learning with Jupyter
+
+TBD
+
+Launching Jupyter Catalog package:  
+
+     Public Agent hostname: <Public Agent Public IP Address>
+
+Access the Jupyter Web console, after it starts:
+
+     http://<Public Agent Public IP Address>:10108/jupyterlab-notebook  (password: jupyter)
+
+Click on teh 2nd Orange Apache Toree - Scala icon, to open that notebook.
+
+Then, copy and paste the following into the notebook.
+
+     val NUM_SAMPLES = 10000000
+     
+     val count2 = spark.sparkContext.parallelize(1 to NUM_SAMPLES).map{i =>
+       val x = Math.random()
+       val y = Math.random()
+       if (x*x + y*y < 1) 1 else 0
+     }.reduce(_ + _)
+     
+     println("Pi is roughly " + 4.0 * count2 / NUM_SAMPLES)
+
+Then press the run icon to run the Scala program.
+
+### H. Legacy Application Support
+
+TBD
+
+Run the example Tomcat application.
+
+Docker Image to use:
+
+     tomcat:latest
+
+Artifact Location:
+
+     https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war
+
+Command to use:
+
+     mv /mnt/mesos/sandbox/sample.war /usr/local/tomcat/webapps/sample.war && /usr/local/tomcat/bin/catalina.sh run
+
+Access the Tomcat default console via the Marathon-LB instance (named loadbalancer):
+
+     https://<Public Agent Node Public IP Address>:10005
+
+Access the Marathon-LB (loadbalancer) stats console at:
+
+     https://<Public Agent Node Public IP Address>:9090/haproxy?stats
+
+### I. Demonstrate the Enterprise DC/OS features
+
+TBD
+
+While the new Kubernets clusters is launching, use the DC/OS Dashboard to show how DC/OS:
+
+- Integrates with LDAP/AD servers
+- Integrates with SAML 2.0 and OAuth2 authention servers
+- Supports encrypted secrets
+- Provides multi-tenancy at the administrator level by enforcing access control list permissions
+
+Create two user groups (webapps, and mobileapps), then create a user and add it to the mobileapps group.
+
+Add ACL rules to the mobileapps group by copying the contents of:
+
+    examples/acl-examples.txt
+
+into the Permissions panel for the webapps group.
+
+Then log off as the super user and log in as the user you created. Show how many of the left side menu options are missing and try to start a MySQL package in the application group:
+
+    /mobileapps/mysql
+
+Show how DC/OS does not allow the user to start MySQL into that application group. Then change it to the group:
+
+    /webapps/mysql
+
+And show how DC/OS allows that and by looking at the Services panel, how the MySQL package is "deploying".
+
 
 ## 3. Summarize what you demonstrated
 
