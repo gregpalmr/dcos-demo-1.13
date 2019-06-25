@@ -83,7 +83,29 @@ echo
 
 HAPROXY1_PUB_IP=$(priv_ip=$(dcos task k8s-api-proxies_k8s-c1 | grep -v HOST | awk '{print $2}') && dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --master-proxy --private-ip=$priv_ip --user=centos "curl http://169.254.169.254/latest/meta-data/public-ipv4");
 
+if [ "$?" != 0 ]
+then
+    echo ""
+    echo " ERROR: Unable to get public IP address of agent node running api-proxy "
+    echo "        for Kubernetes cluster k8s-c1"
+    echo "        Did you run ssh-add to add your ssh key to the cache?"
+    echo " Exiting."
+    echo ""
+    exit 1
+fi
+
 HAPROXY2_PUB_IP=$(priv_ip=$(dcos task k8s-api-proxies_k8s-c2 | grep -v HOST | awk '{print $2}') && dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --master-proxy --private-ip=$priv_ip --user=centos "curl http://169.254.169.254/latest/meta-data/public-ipv4"); 
+
+if [ "$?" != 0 ]
+then
+    echo ""
+    echo " ERROR: Unable to get public IP address of agent node running api-proxy "
+    echo "        for Kubernetes cluster k8s-c2"
+    echo "        Did you run ssh-add to add your ssh key to the cache?"
+    echo " Exiting."
+    echo ""
+    exit 1
+fi
 
 echo
 echo " Kubernetes API Server Proxy 1: $HAPROXY1_PUB_IP  - http://${HAPROXY1_PUB_IP}:9091/haproxy?stats "
