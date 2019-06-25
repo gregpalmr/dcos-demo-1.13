@@ -141,7 +141,7 @@ done
 # Make this one an HA k8s cluster with the older k8s release (so it can be upgraded later)
 echo " Launching HA kubernetes cluster: k8s-c1"
 sed 's/SVC_NAME/k8s-c1/g' resources/package-kubernetes-cluster-ha.json > /tmp/k8s-options.json
-dcos kubernetes cluster create --options=/tmp/k8s-options.json --yes --package-version="2.2.2-1.13.5" > /dev/null 2>&1
+dcos kubernetes cluster create --options=/tmp/k8s-options.json --yes --package-version="2.3.0-1.14.1" > /dev/null 2>&1
 sleep 2
 
 # Make the rest non-HA k8s clusters with various releases
